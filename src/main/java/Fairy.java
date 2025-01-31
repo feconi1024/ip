@@ -1,24 +1,51 @@
+import java.util.Scanner;
+
 public class Fairy {
     private static final String name = "Fairy";
+    private static final Scanner sc = new Scanner(System.in);
 
-    private static void line() {
-        System.out.println("——————————————————————————————————————————————————————————————————————");
+    private static void printEmptyLine() {
+        System.out.println();
+    }
+
+    private static void printIndent(String content) {
+        System.out.print(content.indent(4));
+    }
+
+    private static void printStandardFormat(String content) {
+        printEmptyLine();
+        printIndent(content);
+        printEmptyLine();
     }
 
     private static void greet() {
-        line();
-        System.out.println("Hello! This is " + name + ", your personal assistant.");
-        System.out.println("What can I do for you today?\n");
+        printStandardFormat("Hello, Master. This is " + name + ", your personal assistant.\nHow can I help you?");
     }
 
     private static void exit() {
-        line();
-        System.out.println("Goodbye. Hope to see you again soon!\n");
-        line();
+        printStandardFormat("Goodbye, Master. Hope to see you again soon!\n");
+    }
+
+    private static String prompt() {
+        System.out.print("> ");
+        return sc.next().trim();
+    }
+
+    private static int session() {
+        while (true) {
+            String command = prompt();
+            switch (command) {
+                case "bye":
+                    return 0;
+                default:
+                    printStandardFormat(command);
+            }
+        }
     }
 
     public static void main(String[] args) {
         greet();
+        session();
         exit();
     }
 }

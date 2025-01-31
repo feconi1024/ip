@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
 public class Fairy {
-    private static final String name = "Fairy";
-    private static final Scanner sc = new Scanner(System.in);
+    private static final String NAME = "Fairy";
+    private static final Scanner SC = new Scanner(System.in);
 
     private static void printEmptyLine() {
         System.out.println();
@@ -19,7 +19,7 @@ public class Fairy {
     }
 
     private static void greet() {
-        printStandardFormat("Hello, Master. This is " + name + ", your personal assistant.\nHow can I help you?");
+        printStandardFormat("Hello, Master. This is " + NAME + ", your personal assistant.\nHow can I help you?");
     }
 
     private static void exit() {
@@ -28,7 +28,7 @@ public class Fairy {
 
     private static String prompt() {
         System.out.print("> ");
-        return sc.next().trim();
+        return SC.next().trim();
     }
 
     private static int session() {

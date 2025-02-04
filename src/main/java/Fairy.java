@@ -1,10 +1,37 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Fairy {
     private static final String NAME = "Fairy";
     private static final Scanner SC = new Scanner(System.in);
     private static final ArrayList<Task> TASKS = new ArrayList<>();
+
+    private static List<String> parseCommand(String input) {
+        List<String> result = new ArrayList<>();
+        if (input == null || input.isEmpty()) {
+            return result;
+        }
+
+        // Split into command and the rest of the string
+        String[] cmdSplit = input.split(" ", 2);
+        String command = cmdSplit[0];
+        result.add(command);
+
+        if (cmdSplit.length > 1) {
+            String rest = cmdSplit[1];
+            // Split the rest on any occurrence of whitespace followed by /word
+            String[] parts = rest.split("\\s+/\\w+");
+            for (String part : parts) {
+                String trimmedPart = part.trim();
+                if (!trimmedPart.isEmpty()) {
+                    result.add(trimmedPart);
+                }
+            }
+        }
+
+        return result;
+    }
 
     private static void printEmptyLine() {
         System.out.println();
@@ -59,24 +86,53 @@ public class Fairy {
         printStandardFormat(output);
     }
 
+    private static void addToDo(String task) {
+        Todo newTask = new Todo(task);
+        TASKS.add(newTask);
+        printStandardFormat("Yes, Master. I've added this task to your list:\n" + newTask.toString().indent(2) +
+                "\nThere are " + TASKS.size() + " tasks in your list now.");
+    }
+
+    private static void addDeadline(String task, String endTime) {
+        Deadline newTask = new Deadline(task, endTime);
+        TASKS.add(newTask);
+        printStandardFormat("Yes, Master. I've added this task to your list:\n" + newTask.toString().indent(2) +
+                "\nThere are " + TASKS.size() + " tasks in your list now.");
+    }
+
+    private static void addEvent(String task, String startTime, String endTime) {
+        Event newTask = new Event(task, startTime, endTime);
+        TASKS.add(newTask);
+        printStandardFormat("Yes, Master. I've added this task to your list:\n" + newTask.toString().indent(2) +
+                "\nThere are " + TASKS.size() + " tasks in your list now.");
+    }
+
     private static int session() {
         while (true) {
-            String commandOriginal = prompt();
-            String[] command = commandOriginal.split(" ");
-            switch (command[0]) {
+            List<String> command = parseCommand(prompt());
+            switch (command.get(0)) {
                 case "bye":
                     return 0;
                 case "mark":
-                    markTask(Integer.parseInt(command[1]));
+                    markTask(Integer.parseInt(command.get(1)));
                     break;
                 case "unmark":
-                    unmarkTask(Integer.parseInt(command[1]));
+                    unmarkTask(Integer.parseInt(command.get(1)));
                     break;
                 case "list":
                     printTaskList();
                     break;
+                case "todo":
+                    addToDo(command.get(1));
+                    break;
+                case "deadline":
+                    addDeadline(command.get(1), command.get(2));
+                    break;
+                case "event":
+                    addEvent(command.get(1), command.get(2), command.get(3));
+                    break;
                 default:
-                    addTask(commandOriginal);
+                    addTask(command.get(1));
             }
         }
     }

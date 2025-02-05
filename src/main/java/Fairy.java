@@ -132,7 +132,7 @@ public class Fairy {
                     addEvent(command.get(1), command.get(2), command.get(3));
                     break;
                 default:
-                    addTask(command.get(1));
+                    addTask(String.join(" ", command));
             }
         }
     }

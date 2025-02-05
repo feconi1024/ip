@@ -56,6 +56,18 @@ public class Fairy {
         printStandardFormat("Goodbye, Master. Hope to see you again soon!");
     }
 
+    private static void indexOutOfBoundsMessage(Exception e) {
+        printStandardFormat("Index out of bounds exception: " + e.getMessage());
+    }
+
+    private static void commandNotFoundMessage(String command) {
+        printStandardFormat("Command not found: " + command);
+    }
+
+    private static void argumentExceptionMessage() {
+        printStandardFormat("Argument exception: No enough arguments.");
+    }
+
     private static String prompt() {
         System.out.print("> ");
         return SC.nextLine().trim();
@@ -66,19 +78,29 @@ public class Fairy {
         printStandardFormat("Added: " + task);
     }
 
-    private static void markTask(int index) {
+    private static void markTask(int index) throws IndexOutOfBoundsException {
+        if (index > TASKS.size()) {
+            throw new IndexOutOfBoundsException();
+        }
         TASKS.get(index - 1).setDo();
         printStandardFormat("Nice job, Master. I've marked this task as done: \n" +
                 TASKS.get(index - 1).toString().indent(2));
     }
 
-    private static void unmarkTask(int index) {
+    private static void unmarkTask(int index) throws IndexOutOfBoundsException {
+        if (index > TASKS.size()) {
+            throw new IndexOutOfBoundsException();
+        }
         TASKS.get(index - 1).setUndo();
         printStandardFormat("OK, Master. I've marked this task as not done yet: \n" +
                 TASKS.get(index - 1).toString().indent(2));
     }
 
     private static void printTaskList() {
+        if (TASKS.isEmpty()) {
+            printStandardFormat("No tasks found.");
+            return;
+        }
         String output = "Master, here are the tasks in your list:\n";
         for (int i = 0; i < TASKS.size(); i++) {
             output += (i + 1) + ". " + TASKS.get(i) + "\n";
@@ -114,25 +136,54 @@ public class Fairy {
                 case "bye":
                     return 0;
                 case "mark":
-                    markTask(Integer.parseInt(command.get(1)));
+                    try {
+                        markTask(Integer.parseInt(command.get(1)));
+                    } catch (IndexOutOfBoundsException e) {
+                        if (command.size() < 2) {
+                            argumentExceptionMessage();
+                        } else {
+                            indexOutOfBoundsMessage(e);
+                        }
+                    }
                     break;
                 case "unmark":
-                    unmarkTask(Integer.parseInt(command.get(1)));
+                    try {
+                        unmarkTask(Integer.parseInt(command.get(1)));
+                    } catch (IndexOutOfBoundsException e) {
+                        if (command.size() < 2) {
+                            argumentExceptionMessage();
+                        } else {
+                            indexOutOfBoundsMessage(e);
+                        }
+                    }
                     break;
                 case "list":
                     printTaskList();
                     break;
                 case "todo":
-                    addToDo(command.get(1));
+                    try {
+                        addToDo(command.get(1));
+                    } catch (IndexOutOfBoundsException e) {
+                        argumentExceptionMessage();
+                    }
                     break;
                 case "deadline":
-                    addDeadline(command.get(1), command.get(2));
+                    try {
+                        addDeadline(command.get(1), command.get(2));
+                    } catch (IndexOutOfBoundsException e) {
+                        argumentExceptionMessage();
+                    }
                     break;
                 case "event":
-                    addEvent(command.get(1), command.get(2), command.get(3));
+                    try {
+                        addEvent(command.get(1), command.get(2), command.get(3));
+                    } catch (IndexOutOfBoundsException e) {
+                        argumentExceptionMessage();
+                    }
                     break;
                 default:
-                    addTask(String.join(" ", command));
+                    // Wrong Command
+                    commandNotFoundMessage(command.get(0));
             }
         }
     }

@@ -129,6 +129,15 @@ public class Fairy {
                 "\nThere are " + TASKS.size() + " tasks in your list now.");
     }
 
+    private static void deleteTask(int index) throws IndexOutOfBoundsException {
+        if (index > TASKS.size()) {
+            throw new IndexOutOfBoundsException();
+        }
+        Task removedTask = TASKS.remove(index - 1);
+        printStandardFormat("Yes, Master. I've removed this task from your list:\n" +
+                removedTask.toString().indent(2) + "\nThere are " + TASKS.size() + " tasks in your list now.");
+    }
+
     private static int session() {
         while (true) {
             List<String> command = parseCommand(prompt());
@@ -179,6 +188,17 @@ public class Fairy {
                         addEvent(command.get(1), command.get(2), command.get(3));
                     } catch (IndexOutOfBoundsException e) {
                         argumentExceptionMessage();
+                    }
+                    break;
+                case "delete":
+                    try {
+                        deleteTask(Integer.parseInt(command.get(1)));
+                    } catch (IndexOutOfBoundsException e) {
+                        if (command.size() < 2) {
+                            argumentExceptionMessage();
+                        } else {
+                            indexOutOfBoundsMessage(e);
+                        }
                     }
                     break;
                 default:

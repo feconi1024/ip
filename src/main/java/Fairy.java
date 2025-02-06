@@ -80,7 +80,7 @@ public class Fairy {
 
     private static void markTask(int index) throws IndexOutOfBoundsException {
         if (index > TASKS.size()) {
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException("input " + index + " exceeds the size of list: " + TASKS.size());
         }
         TASKS.get(index - 1).setDo();
         printStandardFormat("Nice job, Master. I've marked this task as done: \n" +
@@ -89,7 +89,7 @@ public class Fairy {
 
     private static void unmarkTask(int index) throws IndexOutOfBoundsException {
         if (index > TASKS.size()) {
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException("input " + index + " exceeds the size of list: " + TASKS.size());
         }
         TASKS.get(index - 1).setUndo();
         printStandardFormat("OK, Master. I've marked this task as not done yet: \n" +
@@ -131,7 +131,7 @@ public class Fairy {
 
     private static void deleteTask(int index) throws IndexOutOfBoundsException {
         if (index > TASKS.size()) {
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException("input " + index + " exceeds the size of list: " + TASKS.size());
         }
         Task removedTask = TASKS.remove(index - 1);
         printStandardFormat("Yes, Master. I've removed this task from your list:\n" +

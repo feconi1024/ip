@@ -3,6 +3,11 @@ public class Todo extends Task {
         super(taskName);
     }
 
+    @Override
+    public String toFileString() {
+        return "TODO | " + super.toFileString();
+    }
+
     public String toString() {
         return "[T]" + super.toString();
     }

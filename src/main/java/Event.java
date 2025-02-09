@@ -16,6 +16,11 @@ public class Event extends Task {
         return endTime;
     }
 
+    @Override
+    public String toFileString() {
+        return "EVENT | " + super.toFileString() + " | " + startTime + " | " + endTime;
+    }
+
     public String toString() {
         return "[D]" + super.toString() + " (from: " + getStartTime() + ", to: " + getEndTime() + ")";
     }

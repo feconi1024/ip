@@ -1,3 +1,7 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -6,6 +10,8 @@ public class Fairy {
     private static final String NAME = "Fairy";
     private static final Scanner SC = new Scanner(System.in);
     private static final ArrayList<Task> TASKS = new ArrayList<>();
+    private static final String FILE = "./data/fairytasks.txt";
+    private static final String DIR = "./data/";
 
     private static List<String> parseCommand(String input) {
         List<String> result = new ArrayList<>();
@@ -138,6 +144,23 @@ public class Fairy {
                 removedTask.toString().indent(2) + "\nThere are " + TASKS.size() + " tasks in your list now.");
     }
 
+    private static void saveFile() {
+        File dir = new File(DIR);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE));
+            for (Task task : TASKS) {
+                writer.write(task.toFileString() + "\n");
+            }
+            writer.close();
+            printStandardFormat("Tasks saved.");
+        } catch (IOException e) {
+            printStandardFormat("Error saving file: " + e.getMessage());
+        }
+    }
+
     private static int session() {
         while (true) {
             List<String> command = parseCommand(prompt());
@@ -211,6 +234,7 @@ public class Fairy {
     public static void main(String[] args) {
         greet();
         session();
+        saveFile();
         exit();
     }
 }

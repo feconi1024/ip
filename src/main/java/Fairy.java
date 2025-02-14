@@ -1,7 +1,4 @@
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -84,6 +81,23 @@ public class Fairy {
         printStandardFormat("Added: " + task);
     }
 
+    private static void addTaskFromRecord(String record) {
+        String[] args = record.split(" \\| ");
+        switch (args[0]) {
+            case "TODO":
+                addToDo(args[2]);
+                break;
+            case "DEADLINE":
+                addDeadline(args[2], args[3]);
+                break;
+            case "EVENT":
+                addEvent(args[2], args[3], args[4]);
+                break;
+            default:
+                printEmptyLine();
+        }
+    }
+
     private static void markTask(int index) throws IndexOutOfBoundsException {
         if (index > TASKS.size()) {
             throw new IndexOutOfBoundsException("input " + index + " exceeds the size of list: " + TASKS.size());
@@ -142,6 +156,20 @@ public class Fairy {
         Task removedTask = TASKS.remove(index - 1);
         printStandardFormat("Yes, Master. I've removed this task from your list:\n" +
                 removedTask.toString().indent(2) + "\nThere are " + TASKS.size() + " tasks in your list now.");
+    }
+
+    private static void readFile() {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(FILE));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                addTaskFromRecord(line);
+            }
+        } catch (FileNotFoundException e) {
+            printStandardFormat("No record found. List starts empty.");
+        } catch (IOException e) {
+            printStandardFormat("I/O exception: " + e.getMessage());
+        }
     }
 
     private static void saveFile() {
@@ -233,6 +261,7 @@ public class Fairy {
 
     public static void main(String[] args) {
         greet();
+        readFile();
         session();
         saveFile();
         exit();

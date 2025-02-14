@@ -23,6 +23,14 @@ public class Task {
         return done;
     }
 
+    public String toFileString() {
+        if (done) {
+            return "T | " + taskName;
+        } else {
+            return "F | " + taskName;
+        }
+    }
+
     public String toString() {
         if (done) {
             return "[X] " + taskName;

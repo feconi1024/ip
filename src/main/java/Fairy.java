@@ -85,13 +85,13 @@ public class Fairy {
         String[] args = record.split(" \\| ");
         switch (args[0]) {
             case "TODO":
-                addToDo(args[2]);
+                addToDoFromRecord(args[2], args[1]);
                 break;
             case "DEADLINE":
-                addDeadline(args[2], args[3]);
+                addDeadlineFromRecord(args[2], args[3], args[1]);
                 break;
             case "EVENT":
-                addEvent(args[2], args[3], args[4]);
+                addEventFromRecord(args[2], args[3], args[4], args[1]);
                 break;
             default:
                 printEmptyLine();
@@ -135,6 +135,16 @@ public class Fairy {
                 "\nThere are " + TASKS.size() + " tasks in your list now.");
     }
 
+    private static void addToDoFromRecord(String task, String done) {
+        Todo newTask = new Todo(task);
+        if (done.equals("T")) {
+            newTask.setDo();
+        } else {
+            newTask.setUndo();
+        }
+        TASKS.add(newTask);
+    }
+
     private static void addDeadline(String task, String endTime) {
         Deadline newTask = new Deadline(task, endTime);
         TASKS.add(newTask);
@@ -142,11 +152,31 @@ public class Fairy {
                 "\nThere are " + TASKS.size() + " tasks in your list now.");
     }
 
+    private static void addDeadlineFromRecord(String task, String endTime, String done) {
+        Deadline newTask = new Deadline(task, endTime);
+        if (done.equals("T")) {
+            newTask.setDo();
+        } else {
+            newTask.setUndo();
+        }
+        TASKS.add(newTask);
+    }
+
     private static void addEvent(String task, String startTime, String endTime) {
         Event newTask = new Event(task, startTime, endTime);
         TASKS.add(newTask);
         printStandardFormat("Yes, Master. I've added this task to your list:\n" + newTask.toString().indent(2) +
                 "\nThere are " + TASKS.size() + " tasks in your list now.");
+    }
+
+    private static void addEventFromRecord(String task, String startTime, String endTime, String done) {
+        Event newTask = new Event(task, startTime, endTime);
+        if (done.equals("T")) {
+            newTask.setDo();
+        } else {
+            newTask.setUndo();
+        }
+        TASKS.add(newTask);
     }
 
     private static void deleteTask(int index) throws IndexOutOfBoundsException {

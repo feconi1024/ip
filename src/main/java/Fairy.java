@@ -81,21 +81,26 @@ public class Fairy {
         printStandardFormat("Added: " + task);
     }
 
-    private static void addTaskFromRecord(String record) {
+    private static int addTaskFromRecord(String record) {
         String[] args = record.split(" \\| ");
-        switch (args[0]) {
-            case "TODO":
-                addToDo(args[2]);
-                break;
-            case "DEADLINE":
-                addDeadline(args[2], args[3]);
-                break;
-            case "EVENT":
-                addEvent(args[2], args[3], args[4]);
-                break;
-            default:
-                printEmptyLine();
+        try {
+            switch (args[0]) {
+                case "TODO":
+                    addToDoFromRecord(args[2], args[1]);
+                    break;
+                case "DEADLINE":
+                    addDeadlineFromRecord(args[2], args[3], args[1]);
+                    break;
+                case "EVENT":
+                    addEventFromRecord(args[2], args[3], args[4], args[1]);
+                    break;
+                default:
+                    return 0;
+            }
+        } catch (IndexOutOfBoundsException e) {
+            return 0;
         }
+        return 1;
     }
 
     private static void markTask(int index) throws IndexOutOfBoundsException {
@@ -135,6 +140,16 @@ public class Fairy {
                 "\nThere are " + TASKS.size() + " tasks in your list now.");
     }
 
+    private static void addToDoFromRecord(String task, String done) {
+        Todo newTask = new Todo(task);
+        if (done.equals("T")) {
+            newTask.setDo();
+        } else {
+            newTask.setUndo();
+        }
+        TASKS.add(newTask);
+    }
+
     private static void addDeadline(String task, String endTime) {
         Deadline newTask = new Deadline(task, endTime);
         TASKS.add(newTask);
@@ -142,11 +157,31 @@ public class Fairy {
                 "\nThere are " + TASKS.size() + " tasks in your list now.");
     }
 
+    private static void addDeadlineFromRecord(String task, String endTime, String done) {
+        Deadline newTask = new Deadline(task, endTime);
+        if (done.equals("T")) {
+            newTask.setDo();
+        } else {
+            newTask.setUndo();
+        }
+        TASKS.add(newTask);
+    }
+
     private static void addEvent(String task, String startTime, String endTime) {
         Event newTask = new Event(task, startTime, endTime);
         TASKS.add(newTask);
         printStandardFormat("Yes, Master. I've added this task to your list:\n" + newTask.toString().indent(2) +
                 "\nThere are " + TASKS.size() + " tasks in your list now.");
+    }
+
+    private static void addEventFromRecord(String task, String startTime, String endTime, String done) {
+        Event newTask = new Event(task, startTime, endTime);
+        if (done.equals("T")) {
+            newTask.setDo();
+        } else {
+            newTask.setUndo();
+        }
+        TASKS.add(newTask);
     }
 
     private static void deleteTask(int index) throws IndexOutOfBoundsException {
@@ -162,9 +197,21 @@ public class Fairy {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(FILE));
             String line;
+            int effectiveLines = 0;
+            int totalLines = 0;
             while ((line = reader.readLine()) != null) {
-                addTaskFromRecord(line);
+                effectiveLines += addTaskFromRecord(line);
+                totalLines += 1;
             }
+            reader.close();
+            if (effectiveLines != totalLines) {
+                printStandardFormat(String.format("%d of %d lines added to the list of tasks. \n" +
+                        "Failures may because of incorrect format or corrupted file.", effectiveLines, totalLines));
+            } else {
+                printStandardFormat(String.format("%d of %d lines added to the list of tasks.",
+                        totalLines, effectiveLines));
+            }
+
         } catch (FileNotFoundException e) {
             printStandardFormat("No record found. List starts empty.");
         } catch (IOException e) {

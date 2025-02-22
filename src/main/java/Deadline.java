@@ -1,21 +1,23 @@
-public class Deadline extends Task {
-    private final String endTime;
+import java.time.LocalDateTime;
 
-    public Deadline(String taskName, String endTime){
+public class Deadline extends Task {
+    private final LocalDateTime endTime;
+
+    public Deadline(String taskName, LocalDateTime endTime){
         super(taskName);
         this.endTime = endTime;
     }
 
-    public String getEndTime(){
+    public LocalDateTime getEndTime(){
         return endTime;
     }
 
     @Override
     public String toFileString() {
-        return "DEADLINE | " + super.toFileString() + " | " + endTime;
+        return "DEADLINE | " + super.toFileString() + " | " + FairyDateTimeFormatter.formatDateTimeFile(getEndTime());
     }
 
     public String toString(){
-        return "[D]" + super.toString() + " (by: " + getEndTime() + ")";
+        return "[D]" + super.toString() + " (by: " + FairyDateTimeFormatter.formatDateTimePrint(getEndTime()) + ")";
     }
 }

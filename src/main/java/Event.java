@@ -1,27 +1,31 @@
-public class Event extends Task {
-    private final String startTime;
-    private final String endTime;
+import java.time.LocalDateTime;
 
-    public Event(String taskName, String startTime, String endTime) {
+public class Event extends Task {
+    private final LocalDateTime startTime;
+    private final LocalDateTime endTime;
+
+    public Event(String taskName, LocalDateTime startTime, LocalDateTime endTime) {
         super(taskName);
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
-    public String getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public String getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
     @Override
     public String toFileString() {
-        return "EVENT | " + super.toFileString() + " | " + startTime + " | " + endTime;
+        return "EVENT | " + super.toFileString() + " | " + FairyDateTimeFormatter.formatDateTimeFile(getStartTime())
+                + " | " + FairyDateTimeFormatter.formatDateTimeFile(getEndTime());
     }
 
     public String toString() {
-        return "[D]" + super.toString() + " (from: " + getStartTime() + ", to: " + getEndTime() + ")";
+        return "[D]" + super.toString() + " (from: " + FairyDateTimeFormatter.formatDateTimePrint(getStartTime())
+                + ", to: " + FairyDateTimeFormatter.formatDateTimePrint(getEndTime()) + ")";
     }
 }

@@ -1,4 +1,8 @@
 import java.io.*;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -71,6 +75,14 @@ public class Fairy {
         printStandardFormat("Argument exception: No enough arguments.");
     }
 
+    private static void dateTimeExceptionMessage(DateTimeException e) {
+        if (e instanceof DateTimeParseException) {
+            printStandardFormat("Date time exception: Wrong format or illegal time. Correct format: YYYYMMDD hhmm");
+        } else {
+            printStandardFormat("Date time exception: " + e.getMessage());
+        }
+    }
+
     private static String prompt() {
         System.out.print("> ");
         return SC.nextLine().trim();
@@ -97,7 +109,7 @@ public class Fairy {
                 default:
                     return 0;
             }
-        } catch (IndexOutOfBoundsException e) {
+        } catch (Exception e) {
             return 0;
         }
         return 1;
@@ -121,14 +133,14 @@ public class Fairy {
                 TASKS.get(index - 1).toString().indent(2));
     }
 
-    private static void printTaskList() {
-        if (TASKS.isEmpty()) {
+    private static void printTaskList(List<Task> tasks) {
+        if (tasks.isEmpty()) {
             printStandardFormat("No tasks found.");
             return;
         }
-        String output = "Master, here are the tasks in your list:\n";
-        for (int i = 0; i < TASKS.size(); i++) {
-            output += (i + 1) + ". " + TASKS.get(i) + "\n";
+        String output = "Tasks found are listed as follows:\n";
+        for (int i = 0; i < tasks.size(); i++) {
+            output += (i + 1) + ". " + tasks.get(i) + "\n";
         }
         printStandardFormat(output);
     }
@@ -151,14 +163,14 @@ public class Fairy {
     }
 
     private static void addDeadline(String task, String endTime) {
-        Deadline newTask = new Deadline(task, endTime);
+        Deadline newTask = new Deadline(task, FairyDateTimeFormatter.parseDateTime(endTime));
         TASKS.add(newTask);
         printStandardFormat("Yes, Master. I've added this task to your list:\n" + newTask.toString().indent(2) +
                 "\nThere are " + TASKS.size() + " tasks in your list now.");
     }
 
     private static void addDeadlineFromRecord(String task, String endTime, String done) {
-        Deadline newTask = new Deadline(task, endTime);
+        Deadline newTask = new Deadline(task, FairyDateTimeFormatter.parseDateTime(endTime));
         if (done.equals("T")) {
             newTask.setDo();
         } else {
@@ -167,15 +179,28 @@ public class Fairy {
         TASKS.add(newTask);
     }
 
-    private static void addEvent(String task, String startTime, String endTime) {
-        Event newTask = new Event(task, startTime, endTime);
+    private static void addEvent(String task, String startTime, String endTime) throws DateTimeException {
+        LocalDateTime start = FairyDateTimeFormatter.parseDateTime(startTime);
+        LocalDateTime end = FairyDateTimeFormatter.parseDateTime(endTime);
+        // start should be no later than end
+        if (end.isBefore(start)) {
+            throw new DateTimeException("Start time is after end time");
+        }
+        Event newTask = new Event(task, start, end);
         TASKS.add(newTask);
         printStandardFormat("Yes, Master. I've added this task to your list:\n" + newTask.toString().indent(2) +
                 "\nThere are " + TASKS.size() + " tasks in your list now.");
     }
 
-    private static void addEventFromRecord(String task, String startTime, String endTime, String done) {
-        Event newTask = new Event(task, startTime, endTime);
+    private static void addEventFromRecord(String task, String startTime, String endTime, String done)
+            throws DateTimeException {
+        LocalDateTime start = FairyDateTimeFormatter.parseDateTime(startTime);
+        LocalDateTime end = FairyDateTimeFormatter.parseDateTime(endTime);
+        // start should be no later than end
+        if (end.isBefore(start)) {
+            throw new DateTimeException("Start time is after end time.");
+        }
+        Event newTask = new Event(task, start, end);
         if (done.equals("T")) {
             newTask.setDo();
         } else {
@@ -191,6 +216,22 @@ public class Fairy {
         Task removedTask = TASKS.remove(index - 1);
         printStandardFormat("Yes, Master. I've removed this task from your list:\n" +
                 removedTask.toString().indent(2) + "\nThere are " + TASKS.size() + " tasks in your list now.");
+    }
+
+    private static void searchTaskByDate(String date) {
+        LocalDate d = FairyDateTimeFormatter.parseDate(date);
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        for (Task task : TASKS) {
+            if (task instanceof Deadline && ((Deadline) task).getEndTime().toLocalDate().equals(d)) {
+                tasks.add(task);
+            } else if (task instanceof Event && !((d.isBefore(((Event) task).getStartTime().toLocalDate())) ||
+                    d.isAfter(((Event) task).getEndTime().toLocalDate()))) {
+                tasks.add(task);
+            }
+        }
+
+        printTaskList(tasks);
     }
 
     private static void readFile() {
@@ -265,7 +306,7 @@ public class Fairy {
                     }
                     break;
                 case "list":
-                    printTaskList();
+                    printTaskList(TASKS);
                     break;
                 case "todo":
                     try {
@@ -279,6 +320,8 @@ public class Fairy {
                         addDeadline(command.get(1), command.get(2));
                     } catch (IndexOutOfBoundsException e) {
                         argumentExceptionMessage();
+                    } catch (DateTimeException e) {
+                        dateTimeExceptionMessage(e);
                     }
                     break;
                 case "event":
@@ -286,6 +329,8 @@ public class Fairy {
                         addEvent(command.get(1), command.get(2), command.get(3));
                     } catch (IndexOutOfBoundsException e) {
                         argumentExceptionMessage();
+                    } catch (DateTimeException e) {
+                        dateTimeExceptionMessage(e);
                     }
                     break;
                 case "delete":
@@ -297,6 +342,15 @@ public class Fairy {
                         } else {
                             indexOutOfBoundsMessage(e);
                         }
+                    }
+                    break;
+                case "searchByDate":
+                    try {
+                        searchTaskByDate(command.get(1));
+                    } catch (IndexOutOfBoundsException e) {
+                        argumentExceptionMessage();
+                    } catch (DateTimeException e) {
+                        dateTimeExceptionMessage(e);
                     }
                     break;
                 default:

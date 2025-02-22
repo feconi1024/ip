@@ -1,5 +1,6 @@
 import java.io.*;
 import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -132,14 +133,14 @@ public class Fairy {
                 TASKS.get(index - 1).toString().indent(2));
     }
 
-    private static void printTaskList() {
-        if (TASKS.isEmpty()) {
+    private static void printTaskList(List<Task> tasks) {
+        if (tasks.isEmpty()) {
             printStandardFormat("No tasks found.");
             return;
         }
-        String output = "Master, here are the tasks in your list:\n";
-        for (int i = 0; i < TASKS.size(); i++) {
-            output += (i + 1) + ". " + TASKS.get(i) + "\n";
+        String output = "Tasks found are listed as follows:\n";
+        for (int i = 0; i < tasks.size(); i++) {
+            output += (i + 1) + ". " + tasks.get(i) + "\n";
         }
         printStandardFormat(output);
     }
@@ -217,6 +218,22 @@ public class Fairy {
                 removedTask.toString().indent(2) + "\nThere are " + TASKS.size() + " tasks in your list now.");
     }
 
+    private static void searchTaskByDate(String date) {
+        LocalDate d = FairyDateTimeFormatter.parseDate(date);
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        for (Task task : TASKS) {
+            if (task instanceof Deadline && ((Deadline) task).getEndTime().toLocalDate().equals(d)) {
+                tasks.add(task);
+            } else if (task instanceof Event && !((d.isBefore(((Event) task).getStartTime().toLocalDate())) ||
+                    d.isAfter(((Event) task).getEndTime().toLocalDate()))) {
+                tasks.add(task);
+            }
+        }
+
+        printTaskList(tasks);
+    }
+
     private static void readFile() {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(FILE));
@@ -289,7 +306,7 @@ public class Fairy {
                     }
                     break;
                 case "list":
-                    printTaskList();
+                    printTaskList(TASKS);
                     break;
                 case "todo":
                     try {
@@ -325,6 +342,15 @@ public class Fairy {
                         } else {
                             indexOutOfBoundsMessage(e);
                         }
+                    }
+                    break;
+                case "searchByDate":
+                    try {
+                        searchTaskByDate(command.get(1));
+                    } catch (IndexOutOfBoundsException e) {
+                        argumentExceptionMessage();
+                    } catch (DateTimeException e) {
+                        dateTimeExceptionMessage(e);
                     }
                     break;
                 default:

@@ -1,4 +1,5 @@
 import java.io.*;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -71,6 +72,10 @@ public class Fairy {
         printStandardFormat("Argument exception: No enough arguments.");
     }
 
+    private static void dateTimeExceptionMessage() {
+        printStandardFormat("Date time exception: Wrong format. Correct format: YYYYMMDD hhmm");
+    }
+
     private static String prompt() {
         System.out.print("> ");
         return SC.nextLine().trim();
@@ -97,7 +102,7 @@ public class Fairy {
                 default:
                     return 0;
             }
-        } catch (IndexOutOfBoundsException e) {
+        } catch (Exception e) {
             return 0;
         }
         return 1;
@@ -151,14 +156,14 @@ public class Fairy {
     }
 
     private static void addDeadline(String task, String endTime) {
-        Deadline newTask = new Deadline(task, endTime);
+        Deadline newTask = new Deadline(task, FairyDateTimeFormatter.parseDateTime(endTime));
         TASKS.add(newTask);
         printStandardFormat("Yes, Master. I've added this task to your list:\n" + newTask.toString().indent(2) +
                 "\nThere are " + TASKS.size() + " tasks in your list now.");
     }
 
     private static void addDeadlineFromRecord(String task, String endTime, String done) {
-        Deadline newTask = new Deadline(task, endTime);
+        Deadline newTask = new Deadline(task, FairyDateTimeFormatter.parseDateTime(endTime));
         if (done.equals("T")) {
             newTask.setDo();
         } else {
@@ -168,14 +173,14 @@ public class Fairy {
     }
 
     private static void addEvent(String task, String startTime, String endTime) {
-        Event newTask = new Event(task, startTime, endTime);
+        Event newTask = new Event(task, FairyDateTimeFormatter.parseDateTime(startTime), FairyDateTimeFormatter.parseDateTime(endTime));
         TASKS.add(newTask);
         printStandardFormat("Yes, Master. I've added this task to your list:\n" + newTask.toString().indent(2) +
                 "\nThere are " + TASKS.size() + " tasks in your list now.");
     }
 
     private static void addEventFromRecord(String task, String startTime, String endTime, String done) {
-        Event newTask = new Event(task, startTime, endTime);
+        Event newTask = new Event(task, FairyDateTimeFormatter.parseDateTime(startTime), FairyDateTimeFormatter.parseDateTime(endTime));
         if (done.equals("T")) {
             newTask.setDo();
         } else {
@@ -279,6 +284,8 @@ public class Fairy {
                         addDeadline(command.get(1), command.get(2));
                     } catch (IndexOutOfBoundsException e) {
                         argumentExceptionMessage();
+                    } catch (DateTimeParseException e) {
+                        dateTimeExceptionMessage();
                     }
                     break;
                 case "event":
@@ -286,6 +293,8 @@ public class Fairy {
                         addEvent(command.get(1), command.get(2), command.get(3));
                     } catch (IndexOutOfBoundsException e) {
                         argumentExceptionMessage();
+                    } catch (DateTimeParseException e) {
+                        dateTimeExceptionMessage();
                     }
                     break;
                 case "delete":

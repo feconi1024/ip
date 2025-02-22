@@ -72,7 +72,7 @@ public class Fairy {
         printStandardFormat("Argument exception: No enough arguments.");
     }
 
-    private static void dateTimeExceptionMessage() {
+    private static void dateTimeParseExceptionMessage() {
         printStandardFormat("Date time exception: Wrong format. Correct format: YYYYMMDD hhmm");
     }
 
@@ -285,7 +285,7 @@ public class Fairy {
                     } catch (IndexOutOfBoundsException e) {
                         argumentExceptionMessage();
                     } catch (DateTimeParseException e) {
-                        dateTimeExceptionMessage();
+                        dateTimeParseExceptionMessage();
                     }
                     break;
                 case "event":
@@ -294,7 +294,7 @@ public class Fairy {
                     } catch (IndexOutOfBoundsException e) {
                         argumentExceptionMessage();
                     } catch (DateTimeParseException e) {
-                        dateTimeExceptionMessage();
+                        dateTimeParseExceptionMessage();
                     }
                     break;
                 case "delete":

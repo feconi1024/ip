@@ -1,3 +1,5 @@
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.time.DateTimeException;
 import java.time.format.DateTimeParseException;
 import java.util.Iterator;
@@ -6,6 +8,18 @@ import java.util.Scanner;
 public class Ui {
     private static final Scanner SC = new Scanner(System.in);
     private static final String NAME = "Fairy";
+
+    private final Scanner in;
+    private final PrintStream out;
+
+    public Ui() {
+        this(System.in, System.out);
+    }
+
+    public Ui(InputStream in, PrintStream out) {
+        this.in = new Scanner(in);
+        this.out = out;
+    }
 
     public static void printEmptyLine() {
         System.out.println();

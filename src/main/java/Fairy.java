@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Fairy {
-    private static final ArrayList<Task> TASKS = new ArrayList<>();
+    public static final ArrayList<Task> TASKS = new ArrayList<>();
     private static final String FILE = "./data/fairytasks.txt";
     private static final String DIR = "./data/";
 
@@ -41,7 +41,7 @@ public class Fairy {
         Ui.printStandardFormat("Added: " + task);
     }
 
-    private static int addTaskFromRecord(String record) {
+    public static int addTaskFromRecord(String record) {
         String[] args = record.split(" \\| ");
         try {
             switch (args[0]) {
@@ -182,49 +182,6 @@ public class Fairy {
         printTaskList(tasks);
     }
 
-    private static void readFile() {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(FILE));
-            String line;
-            int effectiveLines = 0;
-            int totalLines = 0;
-            while ((line = reader.readLine()) != null) {
-                effectiveLines += addTaskFromRecord(line);
-                totalLines += 1;
-            }
-            reader.close();
-            if (effectiveLines != totalLines) {
-                Ui.printStandardFormat(String.format("%d of %d lines added to the list of tasks. \n" +
-                        "Failures may because of incorrect format or corrupted file.", effectiveLines, totalLines));
-            } else {
-                Ui.printStandardFormat(String.format("%d of %d lines added to the list of tasks.",
-                        totalLines, effectiveLines));
-            }
-
-        } catch (FileNotFoundException e) {
-            Ui.printStandardFormat("No record found. List starts empty.");
-        } catch (IOException e) {
-            Ui.printStandardFormat("I/O exception: " + e.getMessage());
-        }
-    }
-
-    private static void saveFile() {
-        File dir = new File(DIR);
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE));
-            for (Task task : TASKS) {
-                writer.write(task.toFileString() + "\n");
-            }
-            writer.close();
-            Ui.printStandardFormat("Tasks saved.");
-        } catch (IOException e) {
-            Ui.printStandardFormat("Error saving file: " + e.getMessage());
-        }
-    }
-
     private static int session() {
         while (true) {
             List<String> command = parseCommand(Ui.prompt());
@@ -310,9 +267,10 @@ public class Fairy {
 
     public static void main(String[] args) {
         Ui.greetMessage();
-        readFile();
+        Storage storage = new Storage(DIR, FILE);
+        storage.readFile();
         session();
-        saveFile();
+        storage.saveFile();
         Ui.exitMessage();
     }
 }

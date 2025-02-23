@@ -1,7 +1,6 @@
 import java.time.DateTimeException;
 import java.time.format.DateTimeParseException;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Scanner;
 
 public class Ui {
@@ -27,11 +26,11 @@ public class Ui {
             Ui.printStandardFormat("No tasks found.");
             return;
         }
-        String output = "Tasks found are listed as follows:\n";
+        StringBuilder output = new StringBuilder("Tasks found are listed as follows:\n");
         for (int i = 0; iterator.hasNext(); i++) {
-            output += (i + 1) + ". " + iterator.next() + "\n";
+            output.append((i + 1)).append(". ").append(iterator.next()).append("\n");
         }
-        Ui.printStandardFormat(output);
+        Ui.printStandardFormat(output.toString());
     }
 
     public static void greetMessage() {

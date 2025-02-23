@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Iterator;
 
 public class Storage {
 
@@ -17,7 +18,7 @@ public class Storage {
             int effectiveLines = 0;
             int totalLines = 0;
             while ((line = reader.readLine()) != null) {
-                effectiveLines += Fairy.addTaskFromRecord(line);
+                effectiveLines += Fairy.TASKS.addTaskFromRecord(line);
                 totalLines += 1;
             }
             reader.close();
@@ -43,7 +44,8 @@ public class Storage {
         }
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
-            for (Task task : Fairy.TASKS) {
+            for (Iterator<Task> it = Fairy.TASKS.iterator(); it.hasNext(); ) {
+                Task task = it.next();
                 writer.write(task.toFileString() + "\n");
             }
             writer.close();

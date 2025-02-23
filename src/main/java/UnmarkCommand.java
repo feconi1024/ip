@@ -1,0 +1,26 @@
+public class UnmarkCommand extends Command {
+
+    public static final String COMMAND_WORD = "unmark";
+
+    public static final String MESSAGE_SUCCESS = "OK, Master. I've marked this task as not done yet: \n%s";
+    public static final String MESSAGE_INDEX_OUT_OF_BOUNDS = "Index out of bounds: input exceeds the size of list: %d";
+
+    public static final int TASK_INDENT = 2;
+
+    private final int taskIndex;
+
+    public UnmarkCommand(int taskIndex) {
+        super();
+        this.taskIndex = taskIndex;
+    }
+
+    @Override
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        try {
+            taskList.unmarkTask(taskIndex);
+            return String.format(MESSAGE_SUCCESS, taskList.getTask(taskIndex).toString().indent(TASK_INDENT));
+        } catch (IndexOutOfBoundsException e) {
+            return String.format(MESSAGE_INDEX_OUT_OF_BOUNDS, taskList.size());
+        }
+    }
+}

@@ -10,32 +10,6 @@ public class Fairy {
     private static final String FILE = "./data/fairytasks.txt";
     private static final String DIR = "./data/";
 
-    private static List<String> parseCommand(String input) {
-        List<String> result = new ArrayList<>();
-        if (input == null || input.isEmpty()) {
-            return result;
-        }
-
-        // Split into command and the rest of the string
-        String[] cmdSplit = input.split(" ", 2);
-        String command = cmdSplit[0];
-        result.add(command);
-
-        if (cmdSplit.length > 1) {
-            String rest = cmdSplit[1];
-            // Split the rest on any occurrence of whitespace followed by /word
-            String[] parts = rest.split("\\s+/\\w+");
-            for (String part : parts) {
-                String trimmedPart = part.trim();
-                if (!trimmedPart.isEmpty()) {
-                    result.add(trimmedPart);
-                }
-            }
-        }
-
-        return result;
-    }
-
     private static void addTask(String task) {
         TASKS.add(new Task(task));
         Ui.printStandardFormat("Added: " + task);
@@ -184,7 +158,7 @@ public class Fairy {
 
     private static int session() {
         while (true) {
-            List<String> command = parseCommand(Ui.prompt());
+            List<String> command = CommandParser.parseCommand(Ui.prompt());
             switch (command.get(0)) {
                 case "bye":
                     return 0;

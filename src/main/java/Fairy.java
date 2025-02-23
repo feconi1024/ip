@@ -2,14 +2,10 @@ import java.io.*;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Fairy {
-    private static final String NAME = "Fairy";
-    private static final Scanner SC = new Scanner(System.in);
     private static final ArrayList<Task> TASKS = new ArrayList<>();
     private static final String FILE = "./data/fairytasks.txt";
     private static final String DIR = "./data/";
@@ -40,57 +36,9 @@ public class Fairy {
         return result;
     }
 
-    private static void printEmptyLine() {
-        System.out.println();
-    }
-
-    private static void printIndent(String content) {
-        System.out.print(content.indent(4));
-    }
-
-    private static void printStandardFormat(String content) {
-        printEmptyLine();
-        printIndent(content);
-        printEmptyLine();
-    }
-
-    private static void greet() {
-        printStandardFormat("Hello, Master. This is " + NAME + ", your personal assistant.\n" +
-                "How can I help you?");
-    }
-
-    private static void exit() {
-        printStandardFormat("Goodbye, Master. Hope to see you again soon!");
-    }
-
-    private static void indexOutOfBoundsMessage(Exception e) {
-        printStandardFormat("Index out of bounds exception: " + e.getMessage());
-    }
-
-    private static void commandNotFoundMessage(String command) {
-        printStandardFormat("Command not found: " + command);
-    }
-
-    private static void argumentExceptionMessage() {
-        printStandardFormat("Argument exception: No enough arguments.");
-    }
-
-    private static void dateTimeExceptionMessage(DateTimeException e) {
-        if (e instanceof DateTimeParseException) {
-            printStandardFormat("Date time exception: Wrong format or illegal time. Correct format: YYYYMMDD hhmm");
-        } else {
-            printStandardFormat("Date time exception: " + e.getMessage());
-        }
-    }
-
-    private static String prompt() {
-        System.out.print("> ");
-        return SC.nextLine().trim();
-    }
-
     private static void addTask(String task) {
         TASKS.add(new Task(task));
-        printStandardFormat("Added: " + task);
+        Ui.printStandardFormat("Added: " + task);
     }
 
     private static int addTaskFromRecord(String record) {
@@ -120,7 +68,7 @@ public class Fairy {
             throw new IndexOutOfBoundsException("input " + index + " exceeds the size of list: " + TASKS.size());
         }
         TASKS.get(index - 1).setDo();
-        printStandardFormat("Nice job, Master. I've marked this task as done: \n" +
+        Ui.printStandardFormat("Nice job, Master. I've marked this task as done: \n" +
                 TASKS.get(index - 1).toString().indent(2));
     }
 
@@ -129,26 +77,26 @@ public class Fairy {
             throw new IndexOutOfBoundsException("input " + index + " exceeds the size of list: " + TASKS.size());
         }
         TASKS.get(index - 1).setUndo();
-        printStandardFormat("OK, Master. I've marked this task as not done yet: \n" +
+        Ui.printStandardFormat("OK, Master. I've marked this task as not done yet: \n" +
                 TASKS.get(index - 1).toString().indent(2));
     }
 
     private static void printTaskList(List<Task> tasks) {
         if (tasks.isEmpty()) {
-            printStandardFormat("No tasks found.");
+            Ui.printStandardFormat("No tasks found.");
             return;
         }
         String output = "Tasks found are listed as follows:\n";
         for (int i = 0; i < tasks.size(); i++) {
             output += (i + 1) + ". " + tasks.get(i) + "\n";
         }
-        printStandardFormat(output);
+        Ui.printStandardFormat(output);
     }
 
     private static void addToDo(String task) {
         Todo newTask = new Todo(task);
         TASKS.add(newTask);
-        printStandardFormat("Yes, Master. I've added this task to your list:\n" + newTask.toString().indent(2) +
+        Ui.printStandardFormat("Yes, Master. I've added this task to your list:\n" + newTask.toString().indent(2) +
                 "\nThere are " + TASKS.size() + " tasks in your list now.");
     }
 
@@ -165,7 +113,7 @@ public class Fairy {
     private static void addDeadline(String task, String endTime) {
         Deadline newTask = new Deadline(task, FairyDateTimeFormatter.parseDateTime(endTime));
         TASKS.add(newTask);
-        printStandardFormat("Yes, Master. I've added this task to your list:\n" + newTask.toString().indent(2) +
+        Ui.printStandardFormat("Yes, Master. I've added this task to your list:\n" + newTask.toString().indent(2) +
                 "\nThere are " + TASKS.size() + " tasks in your list now.");
     }
 
@@ -188,7 +136,7 @@ public class Fairy {
         }
         Event newTask = new Event(task, start, end);
         TASKS.add(newTask);
-        printStandardFormat("Yes, Master. I've added this task to your list:\n" + newTask.toString().indent(2) +
+        Ui.printStandardFormat("Yes, Master. I've added this task to your list:\n" + newTask.toString().indent(2) +
                 "\nThere are " + TASKS.size() + " tasks in your list now.");
     }
 
@@ -214,7 +162,7 @@ public class Fairy {
             throw new IndexOutOfBoundsException("input " + index + " exceeds the size of list: " + TASKS.size());
         }
         Task removedTask = TASKS.remove(index - 1);
-        printStandardFormat("Yes, Master. I've removed this task from your list:\n" +
+        Ui.printStandardFormat("Yes, Master. I've removed this task from your list:\n" +
                 removedTask.toString().indent(2) + "\nThere are " + TASKS.size() + " tasks in your list now.");
     }
 
@@ -246,17 +194,17 @@ public class Fairy {
             }
             reader.close();
             if (effectiveLines != totalLines) {
-                printStandardFormat(String.format("%d of %d lines added to the list of tasks. \n" +
+                Ui.printStandardFormat(String.format("%d of %d lines added to the list of tasks. \n" +
                         "Failures may because of incorrect format or corrupted file.", effectiveLines, totalLines));
             } else {
-                printStandardFormat(String.format("%d of %d lines added to the list of tasks.",
+                Ui.printStandardFormat(String.format("%d of %d lines added to the list of tasks.",
                         totalLines, effectiveLines));
             }
 
         } catch (FileNotFoundException e) {
-            printStandardFormat("No record found. List starts empty.");
+            Ui.printStandardFormat("No record found. List starts empty.");
         } catch (IOException e) {
-            printStandardFormat("I/O exception: " + e.getMessage());
+            Ui.printStandardFormat("I/O exception: " + e.getMessage());
         }
     }
 
@@ -271,15 +219,15 @@ public class Fairy {
                 writer.write(task.toFileString() + "\n");
             }
             writer.close();
-            printStandardFormat("Tasks saved.");
+            Ui.printStandardFormat("Tasks saved.");
         } catch (IOException e) {
-            printStandardFormat("Error saving file: " + e.getMessage());
+            Ui.printStandardFormat("Error saving file: " + e.getMessage());
         }
     }
 
     private static int session() {
         while (true) {
-            List<String> command = parseCommand(prompt());
+            List<String> command = parseCommand(Ui.prompt());
             switch (command.get(0)) {
                 case "bye":
                     return 0;
@@ -288,9 +236,9 @@ public class Fairy {
                         markTask(Integer.parseInt(command.get(1)));
                     } catch (IndexOutOfBoundsException e) {
                         if (command.size() < 2) {
-                            argumentExceptionMessage();
+                            Ui.argumentExceptionMessage();
                         } else {
-                            indexOutOfBoundsMessage(e);
+                            Ui.indexOutOfBoundsMessage(e);
                         }
                     }
                     break;
@@ -299,9 +247,9 @@ public class Fairy {
                         unmarkTask(Integer.parseInt(command.get(1)));
                     } catch (IndexOutOfBoundsException e) {
                         if (command.size() < 2) {
-                            argumentExceptionMessage();
+                            Ui.argumentExceptionMessage();
                         } else {
-                            indexOutOfBoundsMessage(e);
+                            Ui.indexOutOfBoundsMessage(e);
                         }
                     }
                     break;
@@ -312,25 +260,25 @@ public class Fairy {
                     try {
                         addToDo(command.get(1));
                     } catch (IndexOutOfBoundsException e) {
-                        argumentExceptionMessage();
+                        Ui.argumentExceptionMessage();
                     }
                     break;
                 case "deadline":
                     try {
                         addDeadline(command.get(1), command.get(2));
                     } catch (IndexOutOfBoundsException e) {
-                        argumentExceptionMessage();
+                        Ui.argumentExceptionMessage();
                     } catch (DateTimeException e) {
-                        dateTimeExceptionMessage(e);
+                        Ui.dateTimeExceptionMessage(e);
                     }
                     break;
                 case "event":
                     try {
                         addEvent(command.get(1), command.get(2), command.get(3));
                     } catch (IndexOutOfBoundsException e) {
-                        argumentExceptionMessage();
+                        Ui.argumentExceptionMessage();
                     } catch (DateTimeException e) {
-                        dateTimeExceptionMessage(e);
+                        Ui.dateTimeExceptionMessage(e);
                     }
                     break;
                 case "delete":
@@ -338,9 +286,9 @@ public class Fairy {
                         deleteTask(Integer.parseInt(command.get(1)));
                     } catch (IndexOutOfBoundsException e) {
                         if (command.size() < 2) {
-                            argumentExceptionMessage();
+                            Ui.argumentExceptionMessage();
                         } else {
-                            indexOutOfBoundsMessage(e);
+                            Ui.indexOutOfBoundsMessage(e);
                         }
                     }
                     break;
@@ -348,23 +296,23 @@ public class Fairy {
                     try {
                         searchTaskByDate(command.get(1));
                     } catch (IndexOutOfBoundsException e) {
-                        argumentExceptionMessage();
+                        Ui.argumentExceptionMessage();
                     } catch (DateTimeException e) {
-                        dateTimeExceptionMessage(e);
+                        Ui.dateTimeExceptionMessage(e);
                     }
                     break;
                 default:
                     // Wrong Command
-                    commandNotFoundMessage(command.get(0));
+                    Ui.commandNotFoundMessage(command.get(0));
             }
         }
     }
 
     public static void main(String[] args) {
-        greet();
+        Ui.greetMessage();
         readFile();
         session();
         saveFile();
-        exit();
+        Ui.exitMessage();
     }
 }

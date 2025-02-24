@@ -1,3 +1,10 @@
+package fairy.command;
+
+import fairy.storage.Storage;
+import fairy.task.Task;
+import fairy.task.TaskList;
+import fairy.ui.Ui;
+
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";

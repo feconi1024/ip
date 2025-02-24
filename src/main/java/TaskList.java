@@ -51,28 +51,17 @@ public class TaskList {
     }
 
     public void markTask(int index) throws IndexOutOfBoundsException {
-        if (index > tasks.size()) {
-            throw new IndexOutOfBoundsException("input " + index + " exceeds the size of list: " + tasks.size());
-        }
         tasks.get(index - 1).setDo();
-        Ui.printStandardFormat("Nice job, Master. I've marked this task as done: \n" +
-                tasks.get(index - 1).toString().indent(2));
     }
 
     public void unmarkTask(int index) throws IndexOutOfBoundsException {
-        if (index > tasks.size()) {
-            throw new IndexOutOfBoundsException("input " + index + " exceeds the size of list: " + tasks.size());
-        }
         tasks.get(index - 1).setUndo();
-        Ui.printStandardFormat("OK, Master. I've marked this task as not done yet: \n" +
-                tasks.get(index - 1).toString().indent(2));
     }
 
-    public void addToDo(String task) {
+    public Todo addToDo(String task) {
         Todo newTask = new Todo(task);
         tasks.add(newTask);
-        Ui.printStandardFormat("Yes, Master. I've added this task to your list:\n" + newTask.toString().indent(2) +
-                "\nThere are " + tasks.size() + " tasks in your list now.");
+        return newTask;
     }
 
     public void addToDoFromRecord(String task, String done) {
@@ -85,11 +74,10 @@ public class TaskList {
         tasks.add(newTask);
     }
 
-    public void addDeadline(String task, String endTime) {
+    public Deadline addDeadline(String task, String endTime) {
         Deadline newTask = new Deadline(task, FairyDateTimeFormatter.parseDateTime(endTime));
         tasks.add(newTask);
-        Ui.printStandardFormat("Yes, Master. I've added this task to your list:\n" + newTask.toString().indent(2) +
-                "\nThere are " + tasks.size() + " tasks in your list now.");
+        return newTask;
     }
 
     public void addDeadlineFromRecord(String task, String endTime, String done) {
@@ -102,7 +90,7 @@ public class TaskList {
         tasks.add(newTask);
     }
 
-    public void addEvent(String task, String startTime, String endTime) throws DateTimeException {
+    public Event addEvent(String task, String startTime, String endTime) throws DateTimeException {
         LocalDateTime start = FairyDateTimeFormatter.parseDateTime(startTime);
         LocalDateTime end = FairyDateTimeFormatter.parseDateTime(endTime);
         // start should be no later than end
@@ -111,8 +99,7 @@ public class TaskList {
         }
         Event newTask = new Event(task, start, end);
         tasks.add(newTask);
-        Ui.printStandardFormat("Yes, Master. I've added this task to your list:\n" + newTask.toString().indent(2) +
-                "\nThere are " + tasks.size() + " tasks in your list now.");
+        return newTask;
     }
 
     public void addEventFromRecord(String task, String startTime, String endTime, String done)
@@ -132,13 +119,12 @@ public class TaskList {
         tasks.add(newTask);
     }
 
-    public void deleteTask(int index) throws IndexOutOfBoundsException {
+    public Task deleteTask(int index) throws IndexOutOfBoundsException {
         if (index > tasks.size()) {
             throw new IndexOutOfBoundsException("input " + index + " exceeds the size of list: " + tasks.size());
         }
         Task removedTask = tasks.remove(index - 1);
-        Ui.printStandardFormat("Yes, Master. I've removed this task from your list:\n" +
-                removedTask.toString().indent(2) + "\nThere are " + tasks.size() + " tasks in your list now.");
+        return removedTask;
     }
 
     public Iterator<Task> searchTaskByDate(String date) {

@@ -18,8 +18,8 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-            // Substitute with returned task later
-            taskList.deleteTask(taskIndex);
+            Task task = taskList.deleteTask(taskIndex);
+            ui.printStandardFormat(String.format(MESSAGE_SUCCESS, task.toString().indent(TASK_INDENT), taskList.size()));
         } catch (IndexOutOfBoundsException e) {
             ui.printStandardFormat(String.format(MESSAGE_INDEX_OUT_OF_BOUNDS, taskIndex));
         }

@@ -27,9 +27,8 @@ public class EventCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-            // Substitute with returned task later
-            taskList.addEvent(taskName, startTime, endTime);
-            ui.printStandardFormat(String.format(MESSAGE_SUCCESS, taskName, taskList.size()));
+            Task task = taskList.addEvent(taskName, startTime, endTime);
+            ui.printStandardFormat(String.format(MESSAGE_SUCCESS, task.toString().indent(TASK_INDENT), taskList.size()));
         } catch (DateTimeParseException e) {
             ui.printStandardFormat(MESSAGE_DATETIME_PARSE_EXCEPTION);
         } catch (DateTimeException e) {

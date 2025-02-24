@@ -21,7 +21,7 @@ public class TaskList {
     }
 
     public Task getTask(int index) throws IndexOutOfBoundsException {
-        return this.tasks.get(index);
+        return this.tasks.get(index - 1);
     }
 
     public Iterator<Task> iterator() {
@@ -50,12 +50,14 @@ public class TaskList {
         return 1;
     }
 
-    public void markTask(int index) throws IndexOutOfBoundsException {
+    public Task markTask(int index) throws IndexOutOfBoundsException {
         tasks.get(index - 1).setDo();
+        return tasks.get(index - 1);
     }
 
-    public void unmarkTask(int index) throws IndexOutOfBoundsException {
+    public Task unmarkTask(int index) throws IndexOutOfBoundsException {
         tasks.get(index - 1).setUndo();
+        return tasks.get(index - 1);
     }
 
     public Todo addToDo(String task) {

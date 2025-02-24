@@ -16,8 +16,7 @@ public class TodoCommand extends Command{
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        // Substitute with returned Task later
-        taskList.addToDo(taskName);
-        ui.printStandardFormat(String.format(MESSAGE_SUCCESS, taskName, taskList.size()));
+        Task task = taskList.addToDo(taskName);
+        ui.printStandardFormat(String.format(MESSAGE_SUCCESS, task.toString().indent(TASK_INDENT), taskList.size()));
     }
 }

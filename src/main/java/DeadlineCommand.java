@@ -25,9 +25,8 @@ public class DeadlineCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-            // Substitute with returned task later
-            taskList.addDeadline(taskName, endTime);
-            ui.printStandardFormat(String.format(MESSAGE_SUCCESS, taskName, taskList.size()));
+            Task task = taskList.addDeadline(taskName, endTime);
+            ui.printStandardFormat(String.format(MESSAGE_SUCCESS, task.toString().indent(TASK_INDENT), taskList.size()));
         } catch (DateTimeParseException e) {
             ui.printStandardFormat(MESSAGE_DATETIME_PARSE_EXCEPTION);
         } catch (DateTimeException e) {

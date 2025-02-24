@@ -12,9 +12,9 @@ public class ListCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-            Ui.printStandardFormat(MESSAGE_LIST_INTRO + FairyTaskListOutputFormatter.formatTaskList(taskList.iterator()));
+            ui.printStandardFormat(MESSAGE_LIST_INTRO + FairyTaskListOutputFormatter.formatTaskList(taskList.iterator()));
         } catch (EmptyListException e) {
-            Ui.printStandardFormat(MESSAGE_NO_TASKS_FOUND);
+            ui.printStandardFormat(MESSAGE_NO_TASKS_FOUND);
         }
     }
 }

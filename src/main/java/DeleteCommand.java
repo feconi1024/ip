@@ -21,7 +21,7 @@ public class DeleteCommand extends Command {
             // Substitute with returned task later
             taskList.deleteTask(taskIndex);
         } catch (IndexOutOfBoundsException e) {
-            Ui.printStandardFormat(String.format(MESSAGE_INDEX_OUT_OF_BOUNDS, taskIndex));
+            ui.printStandardFormat(String.format(MESSAGE_INDEX_OUT_OF_BOUNDS, taskIndex));
         }
     }
 }

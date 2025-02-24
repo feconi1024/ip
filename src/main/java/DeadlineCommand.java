@@ -27,11 +27,11 @@ public class DeadlineCommand extends Command {
         try {
             // Substitute with returned task later
             taskList.addDeadline(taskName, endTime);
-            Ui.printStandardFormat(String.format(MESSAGE_SUCCESS, taskName, taskList.size()));
+            ui.printStandardFormat(String.format(MESSAGE_SUCCESS, taskName, taskList.size()));
         } catch (DateTimeParseException e) {
-            Ui.printStandardFormat(MESSAGE_DATETIME_PARSE_EXCEPTION);
+            ui.printStandardFormat(MESSAGE_DATETIME_PARSE_EXCEPTION);
         } catch (DateTimeException e) {
-            Ui.printStandardFormat(String.format(MESSAGE_DATETIME_EXCEPTION, e.getMessage()));
+            ui.printStandardFormat(String.format(MESSAGE_DATETIME_EXCEPTION, e.getMessage()));
         }
     }
 }

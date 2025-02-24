@@ -8,6 +8,8 @@ public class Messages {
     public static final String MESSAGE_GENERAL_EXCEPTION = "General exception: %s";
     public static final String MESSAGE_GREETING = "Hello, Master. This is %s, your personal assistant.\nHow can I help you?";
     public static final String MESSAGE_INDEX_OUT_OF_BOUNDS = "Index out of bounds exception: %s";
+    public static final String MESSAGE_LIST_INTRO = "Tasks found are listed as follows:\n";
+    public static final String MESSAGE_NO_TASKS_FOUND = "No tasks found.";
     public static final String MESSAGE_NUMBER_PARSE_EXCEPTION = "Number parse exception: Integer number expected as argument.";
     public static final String MESSAGE_EXIT = "Goodbye, Master. Hope to see you again soon!";
 

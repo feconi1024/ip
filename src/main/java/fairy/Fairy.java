@@ -7,15 +7,34 @@ import fairy.storage.Storage;
 import fairy.task.TaskList;
 import fairy.ui.Ui;
 
+
+/**
+ * Entry point of Fairy chatbot application.
+ * Initializes the application and starts the interaction with the user.
+ */
 public class Fairy {
+    /* Name of the chatbot appearing in messages. */
     public static final String NAME = "Fairy";
+
+    /* Path of the task record file to be stored. */
     private static final String FILE = "./data/fairytasks.txt";
+
+    /* Directory of the task record file. Used to create the directory if it does not exist. */
     private static final String DIR = "./data/";
 
     private final Storage storage;
     private final TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Constructor of the application.
+     * Initializes objects that are essential for the application.
+     *
+     *
+     * @param name Name of chatbot.
+     * @param filePath Path to file storing records of tasks.
+     * @param fileDir Directory holding file.
+     */
     public Fairy(String name, String filePath, String fileDir) {
         ui = new Ui(name);
         storage = new Storage(fileDir, filePath);
@@ -23,6 +42,9 @@ public class Fairy {
         storage.readFile(tasks, ui);
     }
 
+    /**
+     * Runs the chatbot.
+     */
     public void run() {
         ui.greetMessage();
         boolean isExit = false;

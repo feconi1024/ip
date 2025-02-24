@@ -3,6 +3,10 @@ package fairy.storage;
 import java.io.*;
 import java.util.Iterator;
 
+import fairy.task.Task;
+import fairy.task.TaskList;
+import fairy.ui.Ui;
+
 public class Storage {
 
     private static final String MESSAGE_RECORD_ADDED = "%d of %d lines added to the list of tasks.";

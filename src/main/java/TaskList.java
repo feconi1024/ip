@@ -141,7 +141,7 @@ public class TaskList {
                 removedTask.toString().indent(2) + "\nThere are " + tasks.size() + " tasks in your list now.");
     }
 
-    public void searchTaskByDate(String date) {
+    public Iterator<Task> searchTaskByDate(String date) {
         LocalDate d = FairyDateTimeFormatter.parseDate(date);
         ArrayList<Task> foundTasks = new ArrayList<>();
 
@@ -154,7 +154,7 @@ public class TaskList {
             }
         }
 
-        Ui.printTaskList(foundTasks.iterator());
+        return foundTasks.iterator();
     }
 
 }

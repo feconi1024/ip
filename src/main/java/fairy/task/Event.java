@@ -2,6 +2,8 @@ package fairy.task;
 
 import java.time.LocalDateTime;
 
+import fairy.common.utils.FairyDateTimeFormatter;
+
 public class Event extends Task {
     private final LocalDateTime startTime;
     private final LocalDateTime endTime;

@@ -1,12 +1,12 @@
 package fairy.task;
 
-import fairy.common.utils.FairyDateTimeFormatter;
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import fairy.common.utils.FairyDateTimeFormatter;
 
 public class TaskList {
 

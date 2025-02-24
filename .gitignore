@@ -8,9 +8,6 @@
 /build/
 src/main/resources/docs/
 
-# JAR files
-/*.jar
-
 # Local saved files
 /data/
 

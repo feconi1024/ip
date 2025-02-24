@@ -15,12 +15,12 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             taskList.markTask(taskIndex);
-            return String.format(MESSAGE_SUCCESS, taskList.getTask(taskIndex).toString().indent(TASK_INDENT));
+            Ui.printStandardFormat(String.format(MESSAGE_SUCCESS, taskList.getTask(taskIndex).toString().indent(TASK_INDENT)));
         } catch (IndexOutOfBoundsException e) {
-            return String.format(MESSAGE_INDEX_OUT_OF_BOUNDS, taskList.size());
+            Ui.printStandardFormat(String.format(MESSAGE_INDEX_OUT_OF_BOUNDS, taskList.size()));
         }
     }
 }

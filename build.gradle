@@ -33,6 +33,7 @@ application {
 
 shadowJar {
     archiveBaseName = "fairy"
+    archiveVersion = "0.0.1"
     archiveClassifier = null
 }
 

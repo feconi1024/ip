@@ -8,6 +8,9 @@
 /build/
 src/main/resources/docs/
 
+# JAR files
+/*.jar
+
 # Local saved files
 /data/
 
@@ -16,5 +19,6 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# UI test files
 /text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED-UNIX.TXT
+/text-ui-test/EXPECTED-UNIX.TXT

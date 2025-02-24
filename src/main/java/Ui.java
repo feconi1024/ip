@@ -6,16 +6,25 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class Ui {
-    private static final String NAME = "Fairy";
 
+    private static final String DEFAULT_NAME = "Fairy";
+
+    private final String name;
     private final Scanner in;
     private final PrintStream out;
 
     public Ui() {
-        this(System.in, System.out);
+        this(DEFAULT_NAME, System.in, System.out);
     }
 
     public Ui(InputStream in, PrintStream out) {
+        this.name = DEFAULT_NAME;
+        this.in = new Scanner(in);
+        this.out = out;
+    }
+
+    public Ui(String name, InputStream in, PrintStream out) {
+        this.name = name;
         this.in = new Scanner(in);
         this.out = out;
     }
@@ -47,7 +56,7 @@ public class Ui {
     }
 
     public void greetMessage() {
-        printStandardFormat("Hello, Master. This is " + NAME + ", your personal assistant.\n" +
+        printStandardFormat("Hello, Master. This is " + name + ", your personal assistant.\n" +
                 "How can I help you?");
     }
 

@@ -21,10 +21,9 @@ public class Storage {
         this.fileName = filename;
     }
 
-    public ArrayList<Task> readFile(TaskList taskList, Ui ui) {
+    public void readFile(TaskList taskList, Ui ui) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
-            ArrayList<Task> tasks = new ArrayList<>();
             String line;
             int effectiveLines = 0;
             int totalLines = 0;

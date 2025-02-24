@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class Ui {
-    private static final Scanner SC = new Scanner(System.in);
     private static final String NAME = "Fairy";
 
     private final Scanner in;
@@ -21,63 +20,63 @@ public class Ui {
         this.out = out;
     }
 
-    public static void printEmptyLine() {
-        System.out.println();
+    public void printEmptyLine() {
+        out.println();
     }
 
-    public static void printIndent(String content) {
-        System.out.print(content.indent(4));
+    public void printIndent(String content) {
+        out.print(content.indent(4));
     }
 
-    public static void printStandardFormat(String content) {
-        Ui.printEmptyLine();
-        Ui.printIndent(content);
-        Ui.printEmptyLine();
+    public void printStandardFormat(String content) {
+        printEmptyLine();
+        printIndent(content);
+        printEmptyLine();
     }
 
-    public static void printTaskList(Iterator<Task> iterator) {
+    public void printTaskList(Iterator<Task> iterator) {
         if (!iterator.hasNext()) {
-            Ui.printStandardFormat("No tasks found.");
+            printStandardFormat("No tasks found.");
             return;
         }
         StringBuilder output = new StringBuilder("Tasks found are listed as follows:\n");
         for (int i = 0; iterator.hasNext(); i++) {
             output.append((i + 1)).append(". ").append(iterator.next()).append("\n");
         }
-        Ui.printStandardFormat(output.toString());
+        printStandardFormat(output.toString());
     }
 
-    public static void greetMessage() {
-        Ui.printStandardFormat("Hello, Master. This is " + NAME + ", your personal assistant.\n" +
+    public void greetMessage() {
+        printStandardFormat("Hello, Master. This is " + NAME + ", your personal assistant.\n" +
                 "How can I help you?");
     }
 
-    public static void exitMessage() {
-        Ui.printStandardFormat("Goodbye, Master. Hope to see you again soon!");
+    public void exitMessage() {
+        printStandardFormat("Goodbye, Master. Hope to see you again soon!");
     }
 
-    public static void indexOutOfBoundsMessage(Exception e) {
-        Ui.printStandardFormat("Index out of bounds exception: " + e.getMessage());
+    public void indexOutOfBoundsMessage(Exception e) {
+        printStandardFormat("Index out of bounds exception: " + e.getMessage());
     }
 
-    public static void commandNotFoundMessage(String command) {
-        Ui.printStandardFormat("Command not found: " + command);
+    public void commandNotFoundMessage(String command) {
+        printStandardFormat("Command not found: " + command);
     }
 
-    public static void argumentExceptionMessage() {
-        Ui.printStandardFormat("Argument exception: No enough arguments.");
+    public void argumentExceptionMessage() {
+        printStandardFormat("Argument exception: No enough arguments.");
     }
 
-    public static void dateTimeExceptionMessage(DateTimeException e) {
+    public void dateTimeExceptionMessage(DateTimeException e) {
         if (e instanceof DateTimeParseException) {
-            Ui.printStandardFormat("Date time exception: Wrong format or illegal time. Correct format: YYYYMMDD hhmm");
+            printStandardFormat("Date time exception: Wrong format or illegal time. Correct format: YYYYMMDD hhmm");
         } else {
-            Ui.printStandardFormat("Date time exception: " + e.getMessage());
+            printStandardFormat("Date time exception: " + e.getMessage());
         }
     }
 
-    public static String prompt() {
-        System.out.print("> ");
-        return SC.nextLine().trim();
+    public String prompt() {
+        out.print("> ");
+        return in.nextLine().trim();
     }
 }

@@ -56,7 +56,7 @@ public class CommandParser {
                 return new ExitCommand();
 
             default:
-                throw new InvalidCommandException();
+                throw new InvalidCommandException(command);
         }
     }
 }

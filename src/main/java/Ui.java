@@ -17,10 +17,12 @@ public class Ui {
         this(DEFAULT_NAME, System.in, System.out);
     }
 
+    public Ui(String name) {
+        this(name, System.in, System.out);
+    }
+
     public Ui(InputStream in, PrintStream out) {
-        this.name = DEFAULT_NAME;
-        this.in = new Scanner(in);
-        this.out = out;
+        this (DEFAULT_NAME, in, out);
     }
 
     public Ui(String name, InputStream in, PrintStream out) {
@@ -74,6 +76,10 @@ public class Ui {
 
     public void argumentExceptionMessage() {
         printStandardFormat("Argument exception: No enough arguments.");
+    }
+
+    public void numberParseExceptionMessage() {
+        printStandardFormat("Number parse exception: Integer number expected as argument.");
     }
 
     public void dateTimeExceptionMessage(DateTimeException e) {

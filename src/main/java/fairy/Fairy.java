@@ -8,7 +8,7 @@ import fairy.task.TaskList;
 import fairy.ui.Ui;
 
 public class Fairy {
-    public static final String NAME = "fairy.Fairy";
+    public static final String NAME = "Fairy";
     private static final String FILE = "./data/fairytasks.txt";
     private static final String DIR = "./data/";
 

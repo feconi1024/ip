@@ -10,7 +10,7 @@ import fairy.common.Messages;
 
 public class Ui {
 
-    private static final String DEFAULT_NAME = "fairy.Fairy";
+    private static final String DEFAULT_NAME = "Fairy";
 
     private final String name;
     private final Scanner in;

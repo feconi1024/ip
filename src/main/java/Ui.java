@@ -45,52 +45,39 @@ public class Ui {
         printEmptyLine();
     }
 
-    public void printTaskList(Iterator<Task> iterator) {
-        if (!iterator.hasNext()) {
-            printStandardFormat("No tasks found.");
-            return;
-        }
-        StringBuilder output = new StringBuilder("Tasks found are listed as follows:\n");
-        for (int i = 0; iterator.hasNext(); i++) {
-            output.append((i + 1)).append(". ").append(iterator.next()).append("\n");
-        }
-        printStandardFormat(output.toString());
-    }
-
     public void greetMessage() {
-        printStandardFormat("Hello, Master. This is " + name + ", your personal assistant.\n" +
-                "How can I help you?");
+        printStandardFormat(String.format(Messages.MESSAGE_GREETING, name));
     }
 
     public void exitMessage() {
-        printStandardFormat("Goodbye, Master. Hope to see you again soon!");
+        printStandardFormat(Messages.MESSAGE_EXIT);
     }
 
     public void indexOutOfBoundsMessage(String message) {
-        printStandardFormat("Index out of bounds exception: " + message);
+        printStandardFormat(String.format(Messages.MESSAGE_INDEX_OUT_OF_BOUNDS, message));
     }
 
     public void commandNotFoundMessage(String command) {
-        printStandardFormat("Command not found: " + command);
+        printStandardFormat(String.format(Messages.MESSAGE_COMMAND_NOT_FOUND, command));
     }
 
     public void argumentExceptionMessage() {
-        printStandardFormat("Argument exception: No enough arguments.");
+        printStandardFormat(Messages.MESSAGE_ARGUMENT_EXCEPTION);
     }
 
     public void numberParseExceptionMessage() {
-        printStandardFormat("Number parse exception: Integer number expected as argument.");
+        printStandardFormat(Messages.MESSAGE_NUMBER_PARSE_EXCEPTION);
     }
 
     public void generalExceptionMessage(String message) {
-        printStandardFormat("General exception: " + message);
+        printStandardFormat(String.format(Messages.MESSAGE_GENERAL_EXCEPTION, message));
     }
 
     public void dateTimeExceptionMessage(DateTimeException e) {
         if (e instanceof DateTimeParseException) {
-            printStandardFormat("Date time exception: Wrong format or illegal time. Correct format: YYYYMMDD hhmm");
+            printStandardFormat(Messages.MESSAGE_DATETIME_PARSE_EXCEPTION);
         } else {
-            printStandardFormat("Date time exception: " + e.getMessage());
+            printStandardFormat(String.format(Messages.MESSAGE_DATETIME_EXCEPTION, e.getMessage()));
         }
     }
 

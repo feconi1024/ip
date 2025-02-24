@@ -7,9 +7,10 @@ public class TodoCommand extends Command{
 
     public static final int TASK_INDENT = 2;
 
-    private String taskName;
+    private final String taskName;
 
     public TodoCommand(String taskName) {
+        super();
         this.taskName = taskName;
     }
 

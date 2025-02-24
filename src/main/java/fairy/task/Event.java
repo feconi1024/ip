@@ -29,7 +29,7 @@ public class Event extends Task {
     }
 
     public String toString() {
-        return "[D]" + super.toString() + " (from: " + FairyDateTimeFormatter.formatDateTimePrint(getStartTime())
+        return "[E]" + super.toString() + " (from: " + FairyDateTimeFormatter.formatDateTimePrint(getStartTime())
                 + ", to: " + FairyDateTimeFormatter.formatDateTimePrint(getEndTime()) + ")";
     }
 }

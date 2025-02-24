@@ -1,4 +1,13 @@
-public class TodoCommand extends Command{
+package fairy.command;
+
+import fairy.storage.Storage;
+import fairy.task.Task;
+import fairy.task.TaskList;
+
+import fairy.common.Messages;
+import fairy.ui.Ui;
+
+public class TodoCommand extends Command {
 
     public static final String COMMAND_WORD = "todo";
 

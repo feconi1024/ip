@@ -1,3 +1,9 @@
+package fairy.command;
+
+import fairy.storage.Storage;
+import fairy.task.TaskList;
+import fairy.ui.Ui;
+
 public abstract class Command {
 
     public Command() {};

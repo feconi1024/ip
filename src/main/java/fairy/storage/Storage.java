@@ -1,6 +1,11 @@
+package fairy.storage;
+
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Iterator;
+
+import fairy.task.Task;
+import fairy.task.TaskList;
+import fairy.ui.Ui;
 
 public class Storage {
 

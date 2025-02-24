@@ -4,6 +4,7 @@ public class Messages {
     public static final String MESSAGE_ARGUMENT_EXCEPTION = "Argument exception: No enough arguments.";
     public static final String MESSAGE_COMMAND_NOT_FOUND = "Command not found: %s";
     public static final String MESSAGE_DATETIME_EXCEPTION = "Date time exception: %s";
+    public static final String MESSAGE_DATE_PARSE_EXCEPTION = "Date time exception: Wrong format or illegal time. Correct format: YYYYMMDD";
     public static final String MESSAGE_DATETIME_PARSE_EXCEPTION = "Date time exception: Wrong format or illegal time. Correct format: YYYYMMDD hhmm";
     public static final String MESSAGE_GENERAL_EXCEPTION = "General exception: %s";
     public static final String MESSAGE_GREETING = "Hello, Master. This is %s, your personal assistant.\nHow can I help you?";

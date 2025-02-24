@@ -19,7 +19,7 @@ public class SearchByDateCommand extends Command {
             Iterator<Task> taskIterator = taskList.searchTaskByDate(date);
             ui.printStandardFormat(Messages.MESSAGE_LIST_INTRO + FairyTaskListOutputFormatter.formatTaskList(taskIterator));
         } catch (DateTimeParseException e) {
-            ui.printStandardFormat(Messages.MESSAGE_DATETIME_PARSE_EXCEPTION);
+            ui.printStandardFormat(Messages.MESSAGE_DATE_PARSE_EXCEPTION);
         } catch (DateTimeException e) {
             ui.printStandardFormat(String.format(Messages.MESSAGE_DATETIME_EXCEPTION, e.getMessage()));
         } catch (EmptyListException e) {

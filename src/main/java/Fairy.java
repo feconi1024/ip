@@ -93,9 +93,9 @@ public class Fairy {
         Ui ui = new Ui();
         ui.greetMessage();
         Storage storage = new Storage(DIR, FILE);
-        storage.readFile();
+        storage.readFile(TASKS, ui);
         session(ui);
-        storage.saveFile();
+        storage.saveFile(TASKS, ui);
         ui.exitMessage();
     }
 }

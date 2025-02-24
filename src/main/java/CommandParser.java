@@ -52,6 +52,9 @@ public class CommandParser {
             case SearchByDateCommand.COMMAND_WORD:
                 return new SearchByDateCommand(result.get(0));
 
+            case ExitCommand.COMMAND_WORD:
+                return new ExitCommand();
+
             default:
                 throw new InvalidCommandException();
         }

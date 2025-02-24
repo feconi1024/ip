@@ -2,6 +2,7 @@ import java.time.DateTimeException;
 import java.util.List;
 
 public class Fairy {
+    public static final String NAME = "Fairy";
     public static final TaskList TASKS = new TaskList();
     private static final String FILE = "./data/fairytasks.txt";
     private static final String DIR = "./data/";

@@ -17,8 +17,8 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-            taskList.unmarkTask(taskIndex);
-            ui.printStandardFormat(String.format(MESSAGE_SUCCESS, taskList.getTask(taskIndex).toString().indent(TASK_INDENT)));
+            Task task = taskList.unmarkTask(taskIndex);
+            ui.printStandardFormat(String.format(MESSAGE_SUCCESS, task.toString().indent(TASK_INDENT)));
         } catch (IndexOutOfBoundsException e) {
             ui.printStandardFormat(String.format(MESSAGE_INDEX_OUT_OF_BOUNDS, taskList.size()));
         }

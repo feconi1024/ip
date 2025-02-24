@@ -66,8 +66,8 @@ public class Ui {
         printStandardFormat("Goodbye, Master. Hope to see you again soon!");
     }
 
-    public void indexOutOfBoundsMessage(Exception e) {
-        printStandardFormat("Index out of bounds exception: " + e.getMessage());
+    public void indexOutOfBoundsMessage(String message) {
+        printStandardFormat("Index out of bounds exception: " + message);
     }
 
     public void commandNotFoundMessage(String command) {
@@ -80,6 +80,10 @@ public class Ui {
 
     public void numberParseExceptionMessage() {
         printStandardFormat("Number parse exception: Integer number expected as argument.");
+    }
+
+    public void generalExceptionMessage(String message) {
+        printStandardFormat("General exception: " + message);
     }
 
     public void dateTimeExceptionMessage(DateTimeException e) {

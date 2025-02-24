@@ -1,17 +1,14 @@
-import java.time.DateTimeException;
-import java.util.List;
-
 public class Fairy {
     public static final String NAME = "Fairy";
     private static final String FILE = "./data/fairytasks.txt";
     private static final String DIR = "./data/";
 
-    private Storage storage;
-    private TaskList tasks;
-    private Ui ui;
+    private final Storage storage;
+    private final TaskList tasks;
+    private final Ui ui;
 
     public Fairy(String name, String filePath, String fileDir) {
-        ui = new Ui(NAME);
+        ui = new Ui(name);
         storage = new Storage(fileDir, filePath);
         tasks = new TaskList();
         storage.readFile(tasks, ui);
@@ -33,7 +30,7 @@ public class Fairy {
             } catch (InvalidCommandException e) {
                 ui.commandNotFoundMessage(e.getMessage());
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                ui.generalExceptionMessage(e.getMessage());
             }
         }
         storage.saveFile(tasks, ui);

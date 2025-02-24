@@ -1,3 +1,7 @@
+package fairy.common.utils;
+
+import fairy.exception.EmptyListException;
+
 import java.util.Iterator;
 
 public class FairyTaskListOutputFormatter {

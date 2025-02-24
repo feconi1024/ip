@@ -1,13 +1,14 @@
+package fairy.ui;
+
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.time.DateTimeException;
 import java.time.format.DateTimeParseException;
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class Ui {
 
-    private static final String DEFAULT_NAME = "Fairy";
+    private static final String DEFAULT_NAME = "fairy.Fairy";
 
     private final String name;
     private final Scanner in;

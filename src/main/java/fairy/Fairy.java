@@ -1,5 +1,14 @@
+package fairy;
+
+import fairy.command.Command;
+import fairy.exception.InvalidCommandException;
+import fairy.parser.CommandParser;
+import fairy.storage.Storage;
+import fairy.task.TaskList;
+import fairy.ui.Ui;
+
 public class Fairy {
-    public static final String NAME = "Fairy";
+    public static final String NAME = "fairy.Fairy";
     private static final String FILE = "./data/fairytasks.txt";
     private static final String DIR = "./data/";
 

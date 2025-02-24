@@ -1,5 +1,13 @@
+package fairy.command;
+
 import java.time.DateTimeException;
 import java.time.format.DateTimeParseException;
+
+import fairy.common.Messages;
+import fairy.storage.Storage;
+import fairy.task.Task;
+import fairy.task.TaskList;
+import fairy.ui.Ui;
 
 public class DeadlineCommand extends Command {
 

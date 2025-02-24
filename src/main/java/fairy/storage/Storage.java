@@ -1,5 +1,6 @@
+package fairy.storage;
+
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Storage {

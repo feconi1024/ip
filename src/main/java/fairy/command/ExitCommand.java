@@ -1,3 +1,9 @@
+package fairy.command;
+
+import fairy.storage.Storage;
+import fairy.task.TaskList;
+import fairy.ui.Ui;
+
 public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "bye";

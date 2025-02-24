@@ -9,10 +9,14 @@ import fairy.task.Task;
 import fairy.task.TaskList;
 import fairy.ui.Ui;
 
+/**
+ * Represents a command of adding an event to the list of tasks.
+ */
 public class EventCommand extends Command {
 
     public static final String COMMAND_WORD = "event";
 
+    /* Indentation of task information when being shown. */
     public static final int TASK_INDENT = 2;
 
     private final String taskName;

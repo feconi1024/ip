@@ -18,9 +18,9 @@ public class MarkCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             taskList.markTask(taskIndex);
-            Ui.printStandardFormat(String.format(MESSAGE_SUCCESS, taskList.getTask(taskIndex).toString().indent(TASK_INDENT)));
+            ui.printStandardFormat(String.format(MESSAGE_SUCCESS, taskList.getTask(taskIndex).toString().indent(TASK_INDENT)));
         } catch (IndexOutOfBoundsException e) {
-            Ui.printStandardFormat(String.format(MESSAGE_INDEX_OUT_OF_BOUNDS, taskList.size()));
+            ui.printStandardFormat(String.format(MESSAGE_INDEX_OUT_OF_BOUNDS, taskList.size()));
         }
     }
 }

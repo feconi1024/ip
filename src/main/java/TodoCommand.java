@@ -18,6 +18,6 @@ public class TodoCommand extends Command{
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         // Substitute with returned Task later
         taskList.addToDo(taskName);
-        Ui.printStandardFormat(String.format(MESSAGE_SUCCESS, taskName, taskList.size()));
+        ui.printStandardFormat(String.format(MESSAGE_SUCCESS, taskName, taskList.size()));
     }
 }

@@ -1,5 +1,8 @@
 package fairy.exception;
 
+/**
+ * Signals that the command word (or opcode) input does not exist.
+ */
 public class InvalidCommandException extends Exception{
 
     public InvalidCommandException(){

@@ -16,14 +16,14 @@ public abstract class Command {
      *
      * @param tasks List of tasks.
      * @param ui User interface to interact with.
-     * @param storage File loading and saving interfaces.
+     * @param storage File storing task records.
      */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage);
 
     /**
      * Returns indication of exit command.
      *
-     * @return Indication of the command. True means exit command.
+     * @return Indication of the command. {@code True} means exit command.
      */
     public boolean isExit() {
         return false;

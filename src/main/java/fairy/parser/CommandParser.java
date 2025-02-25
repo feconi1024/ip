@@ -15,8 +15,18 @@ import fairy.command.TodoCommand;
 import fairy.command.UnmarkCommand;
 import fairy.exception.InvalidCommandException;
 
+/**
+ * Parses user input.
+ */
 public class CommandParser {
 
+    /**
+     * Parses user input into command for execution.
+     *
+     * @param input User input command string.
+     * @return The command based on user input.
+     * @throws InvalidCommandException If user input is null or command word is not supported.
+     */
     public static Command parseCommand(String input) throws InvalidCommandException {
         List<String> result = new ArrayList<>();
         if (input == null || input.isEmpty()) {

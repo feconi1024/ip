@@ -1,5 +1,8 @@
 package fairy.common;
 
+/**
+ * Container for user visible messages.
+ */
 public class Messages {
 
     public static final String MESSAGE_ADD_TASK_SUCCESS = "Yes, Master. I've added this task to your list:\n%s\nThere are %d tasks in your list now.";

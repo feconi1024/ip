@@ -23,9 +23,9 @@ public class FairyDateTimeFormatter {
     private static final DateTimeFormatter FORMATTER_DATE_INPUT = DateTimeFormatter.ofPattern(FORMAT_DATE_INPUT);
 
     /**
-     * Returns LocalDateTime instance transformed from date and time input.
+     * Returns {@code LocalDateTime} instance transformed from date and time input.
      *
-     * @param date Date and time input in format "YYYYMMDD HHMM" (e.g. 20250101 0000).
+     * @param date Date and time input in format {@code YYYYMMDD HHMM }(e.g. {@code 20250101 0000}).
      * @return Object representing the same time as the input.
      */
     public static LocalDateTime parseDateTime(String date) {
@@ -33,9 +33,9 @@ public class FairyDateTimeFormatter {
     }
 
     /**
-     * Returns LocalDate instance transformed from date input.
+     * Returns {@code LocalDate} instance transformed from date input.
      *
-     * @param date Date input in format "YYYYMMDD" (e.g. 20250101).
+     * @param date Date input in format {@code YYYYMMDD} (e.g. {@code 20250101}).
      * @return Object representing the same date as the input.
      */
     public static LocalDate parseDate(String date) {
@@ -46,7 +46,7 @@ public class FairyDateTimeFormatter {
      * Returns formatted string output of date and time for UI showing.
      *
      * @param dateTime Date and time to be formatted.
-     * @return Formatted date and time output in format "DD Mmm YYYY HH:MM" (e.g. 01 Jan 2025 00:00).
+     * @return Formatted date and time output in format {@code DD Mmm YYYY HH:MM} (e.g. {@code 01 Jan 2025 00:00}).
      */
     public static String formatDateTimePrint(LocalDateTime dateTime) {
         return dateTime.format(FORMATTER_TIME_OUTPUT);
@@ -56,7 +56,7 @@ public class FairyDateTimeFormatter {
      * Returns formatted string output of date and time for file storing.
      *
      * @param dateTime Date and time to be formatted.
-     * @return Formatted date and time output in format "YYYYMMDD HHMM" (e.g. 20250101 0000).
+     * @return Formatted date and time output in format {@code YYYYMMDD HHMM} (e.g. {@code 20250101 0000}).
      */
     public static String formatDateTimeFile(LocalDateTime dateTime) {
         return dateTime.format(FORMATTER_TIME_INPUT);

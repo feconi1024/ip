@@ -1,6 +1,10 @@
 package fairy.task;
 
+/**
+ * Represents a todo task.
+ */
 public class Todo extends Task {
+
     public Todo(String taskName) {
         super(taskName);
     }

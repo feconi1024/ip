@@ -7,6 +7,9 @@ import fairy.task.Task;
 import fairy.task.TaskList;
 import fairy.ui.Ui;
 
+/**
+ * Represents the file used to store task records
+ */
 public class Storage {
 
     private static final String MESSAGE_RECORD_ADDED = "%d of %d lines added to the list of tasks.";
@@ -21,11 +24,21 @@ public class Storage {
     private final String directory;
     private final String fileName;
 
+    /**
+     * @param dir Directory (folder) where the file is stored.
+     * @param filename Path to the file.
+     */
     public Storage(String dir, String filename) {
         this.directory = dir;
         this.fileName = filename;
     }
 
+    /**
+     * Loads the {@code TaskList} data from this storage file, and store in {@code TaskList} instance provided.
+     *
+     * @param taskList List of task where the task records from file will be loaded to.
+     * @param ui User interface of the application.
+     */
     public void readFile(TaskList taskList, Ui ui) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
@@ -52,6 +65,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the {@code TaskList} data to the storage file.
+     *
+     * @param taskList List of tasks that will be saved to the file.
+     * @param ui User interface of the application.
+     */
     public void saveFile(TaskList taskList, Ui ui) {
         File dir = new File(directory);
         if (!dir.exists()) {

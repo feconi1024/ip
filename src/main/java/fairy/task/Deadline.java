@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 
 import fairy.common.utils.FairyDateTimeFormatter;
 
+/**
+ * Represents a deadline task.
+ * Deadline task is a kind of task that has end time.
+ */
 public class Deadline extends Task {
     private final LocalDateTime endTime;
 

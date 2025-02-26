@@ -8,6 +8,9 @@ import fairy.storage.Storage;
 import fairy.task.TaskList;
 import fairy.ui.Ui;
 
+/**
+ * Represents a command of showing all tasks in the list to the output.
+ */
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";

@@ -13,6 +13,9 @@ import fairy.task.Task;
 import fairy.task.TaskList;
 import fairy.ui.Ui;
 
+/**
+ * Represents a command of searching tasks in list with given date information.
+ */
 public class SearchByDateCommand extends Command {
 
     public static final String COMMAND_WORD = "searchByDate";

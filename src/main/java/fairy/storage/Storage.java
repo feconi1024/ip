@@ -13,6 +13,9 @@ import fairy.task.Task;
 import fairy.task.TaskList;
 import fairy.ui.Ui;
 
+/**
+ * Represents the file used to store task records
+ */
 public class Storage {
 
     private static final String MESSAGE_RECORD_ADDED = "%d of %d lines added to the list of tasks.";
@@ -25,16 +28,26 @@ public class Storage {
     private static final String MESSAGE_ERROR_SAVING = "Error saving file: ";
 
     private final String directory;
-    private final String fileName;
+    private final String filePath;
 
-    public Storage(String dir, String filename) {
+    /**
+     * @param dir Directory (folder) where the file is stored.
+     * @param filePath Path to the file.
+     */
+    public Storage(String dir, String filePath) {
         this.directory = dir;
-        this.fileName = filename;
+        this.filePath = filePath;
     }
 
+    /**
+     * Loads the {@code TaskList} data from this storage file, and store in {@code TaskList} instance provided.
+     *
+     * @param taskList List of task where the task records from file will be loaded to.
+     * @param ui User interface of the application.
+     */
     public void readFile(TaskList taskList, Ui ui) {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(fileName));
+            BufferedReader reader = new BufferedReader(new FileReader(filePath));
             String line;
             int effectiveLines = 0;
             int totalLines = 0;
@@ -62,6 +75,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the {@code TaskList} data to the storage file.
+     *
+     * @param taskList List of tasks that will be saved to the file.
+     * @param ui User interface of the application.
+     */
     public void saveFile(TaskList taskList, Ui ui) {
         File dir = new File(directory);
 
@@ -71,7 +90,7 @@ public class Storage {
         }
 
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
             for (Iterator<Task> it = taskList.iterator(); it.hasNext(); ) {
                 Task task = it.next();
                 writer.write(task.toFileString() + "\n");

@@ -8,6 +8,9 @@ import java.util.Iterator;
 
 import fairy.common.utils.FairyDateTimeFormatter;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
 
     private final ArrayList<Task> tasks;
@@ -24,14 +27,33 @@ public class TaskList {
         return this.tasks.isEmpty();
     }
 
+    /**
+     * Retrieves a task.
+     *
+     * @param index The index of the task in the list. Starts from 1.
+     * @return The task at the index given.
+     * @throws IndexOutOfBoundsException If the index is smaller than 1 or exceeds size of the list.
+     */
     public Task getTask(int index) throws IndexOutOfBoundsException {
         return this.tasks.get(index - 1);
     }
 
+    /**
+     * Returns the iterator for iteration of task in list.
+     *
+     * @return Iterator of the list of tasks.
+     */
     public Iterator<Task> iterator() {
         return this.tasks.iterator();
     }
 
+    /**
+     * Adds task to list from record string given.
+     * This method contains a parser for record strings.
+     *
+     * @param record String representing the task from file storing tasks.
+     * @return Flag indicating the result of the process. 1 means a success. 0 means a failure.
+     */
     public int addTaskFromRecord(String record) {
         String[] args = record.split(" \\| ");
         try {
@@ -54,22 +76,49 @@ public class TaskList {
         return 1;
     }
 
+    /**
+     * Marks a task as completed.
+     *
+     * @param index The index of the task in the list. Starts from 1.
+     * @return The task set to completed.
+     * @throws IndexOutOfBoundsException If the index is smaller than 1 or exceeds size of the list.
+     */
     public Task markTask(int index) throws IndexOutOfBoundsException {
         tasks.get(index - 1).setDo();
         return tasks.get(index - 1);
     }
 
+    /**
+     * Marks a task as uncompleted.
+     *
+     * @param index The index of the task in the list. Starts from 1.
+     * @return The task set to uncompleted.
+     * @throws IndexOutOfBoundsException If the index is smaller than 1 or exceeds size of the list.
+     */
     public Task unmarkTask(int index) throws IndexOutOfBoundsException {
         tasks.get(index - 1).setUndo();
         return tasks.get(index - 1);
     }
 
+    /**
+     * Adds a todo task to the list.
+     *
+     * @param task Description of the task.
+     * @return The task added to the list.
+     */
     public Todo addToDo(String task) {
         Todo newTask = new Todo(task);
         tasks.add(newTask);
         return newTask;
     }
 
+    /**
+     * Adds a todo task to the list using information from file storage.
+     * This method will not produce UI output.
+     *
+     * @param task Description of the task.
+     * @param done Completion status of the task. {@code "T"} represents completed. {@code "F"} represents uncompleted.
+     */
     public void addToDoFromRecord(String task, String done) {
         Todo newTask = new Todo(task);
         if (done.equals("T")) {
@@ -80,12 +129,27 @@ public class TaskList {
         tasks.add(newTask);
     }
 
+    /**
+     * Adds a deadline task to the list.
+     *
+     * @param task Description of the task.
+     * @param endTime End time of the task.
+     * @return The task added to the list.
+     */
     public Deadline addDeadline(String task, String endTime) {
         Deadline newTask = new Deadline(task, FairyDateTimeFormatter.parseDateTime(endTime));
         tasks.add(newTask);
         return newTask;
     }
 
+    /**
+     * Adds a deadline task to the list using information from file storage.
+     * This method will not produce UI output.
+     *
+     * @param task Description of the task.
+     * @param endTime End time of the task.
+     * @param done Completion status of the task. {@code "T"} represents completed. {@code "F"} represents uncompleted.
+     */
     public void addDeadlineFromRecord(String task, String endTime, String done) {
         Deadline newTask = new Deadline(task, FairyDateTimeFormatter.parseDateTime(endTime));
         if (done.equals("T")) {
@@ -96,6 +160,15 @@ public class TaskList {
         tasks.add(newTask);
     }
 
+    /**
+     * Adds an event task to the list.
+     *
+     * @param task Description of the task.
+     * @param startTime Start time of the task.
+     * @param endTime End time of the task.
+     * @return The task added to the list.
+     * @throws DateTimeException If the start time is after the end time.
+     */
     public Event addEvent(String task, String startTime, String endTime) throws DateTimeException {
         LocalDateTime start = FairyDateTimeFormatter.parseDateTime(startTime);
         LocalDateTime end = FairyDateTimeFormatter.parseDateTime(endTime);
@@ -110,6 +183,16 @@ public class TaskList {
         return newTask;
     }
 
+    /**
+     * Adds an event task to the list using information from file storage.
+     * This method will not produce UI output.
+     *
+     * @param task Description of the task.
+     * @param startTime Start time of the task.
+     * @param endTime End time of the task.
+     * @param done Completion status of the task. {@code "T"} represents completed. {@code "F"} represents uncompleted.
+     * @throws DateTimeException If the start time is after the end time.
+     */
     public void addEventFromRecord(String task, String startTime, String endTime, String done)
             throws DateTimeException {
         LocalDateTime start = FairyDateTimeFormatter.parseDateTime(startTime);
@@ -129,6 +212,13 @@ public class TaskList {
         tasks.add(newTask);
     }
 
+    /**
+     * Deletes a task from the list.
+     *
+     * @param index The index of the task in the list. Starts from 1.
+     * @return The task removed from the list.
+     * @throws IndexOutOfBoundsException If the index is smaller than 1 or exceeds size of the list.
+     */
     public Task deleteTask(int index) throws IndexOutOfBoundsException {
         if (index > tasks.size()) {
             throw new IndexOutOfBoundsException("input " + index + " exceeds the size of list: " + tasks.size());
@@ -136,6 +226,13 @@ public class TaskList {
         return tasks.remove(index - 1);
     }
 
+    /**
+     * Searches tasks by the given date.
+     * Returns deadlines that ends at the date given, or events happening at the date given.
+     *
+     * @param date Date information used for searching.
+     * @return Iterator of a list of tasks satisfying the date requirement.
+     */
     public Iterator<Task> searchTaskByDate(String date) {
         LocalDate d = FairyDateTimeFormatter.parseDate(date);
         ArrayList<Task> foundTasks = new ArrayList<>();

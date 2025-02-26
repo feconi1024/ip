@@ -5,6 +5,9 @@ import fairy.task.Task;
 import fairy.task.TaskList;
 import fairy.ui.Ui;
 
+/**
+ * Represents a command of deleting task from the list.
+ */
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
@@ -13,10 +16,14 @@ public class DeleteCommand extends Command {
             + "\nThere are %d tasks in your list now.";
     public static final String MESSAGE_INDEX_OUT_OF_BOUNDS = "Index out of bounds: input exceeds the size of list: %d";
 
+    /* Indentation of task information when being shown. */
     public static final int TASK_INDENT = 2;
 
     private final int taskIndex;
 
+    /**
+     * @param taskIndex Index of the task in the list to be deleted. Starts from 1.
+     */
     public DeleteCommand(int taskIndex) {
         super();
         this.taskIndex = taskIndex;

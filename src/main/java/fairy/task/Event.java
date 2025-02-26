@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 
 import fairy.common.utils.FairyDateTimeFormatter;
 
+/**
+ * Represents an event task.
+ * Event is a kind of task that has start time and end time.
+ */
 public class Event extends Task {
     private final LocalDateTime startTime;
     private final LocalDateTime endTime;

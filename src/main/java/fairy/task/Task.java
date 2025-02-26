@@ -2,11 +2,11 @@ package fairy.task;
 
 public class Task {
     private final String taskName;
-    private boolean done;
+    private boolean isDone;
 
     public Task(String taskName) {
         this.taskName = taskName;
-        done = false;
+        this.isDone = false;
     }
 
     public String getTaskName() {
@@ -14,19 +14,19 @@ public class Task {
     }
 
     public void setDo() {
-        done = true;
+        isDone = true;
     }
 
     public void setUndo() {
-        done = false;
+        isDone = false;
     }
 
-    public boolean isDone() {
-        return done;
+    public boolean getIsDone() {
+        return isDone;
     }
 
     public String toFileString() {
-        if (done) {
+        if (isDone) {
             return "T | " + taskName;
         } else {
             return "F | " + taskName;
@@ -34,7 +34,7 @@ public class Task {
     }
 
     public String toString() {
-        if (done) {
+        if (isDone) {
             return "[X] " + taskName;
         } else {
             return "[ ] " + taskName;

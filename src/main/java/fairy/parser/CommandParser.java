@@ -8,6 +8,7 @@ import fairy.command.DeadlineCommand;
 import fairy.command.DeleteCommand;
 import fairy.command.EventCommand;
 import fairy.command.ExitCommand;
+import fairy.command.FindCommand;
 import fairy.command.ListCommand;
 import fairy.command.MarkCommand;
 import fairy.command.SearchByDateCommand;
@@ -42,35 +43,38 @@ public class CommandParser {
         // Return respective commands
         switch (command) {
 
-            case TodoCommand.COMMAND_WORD:
-                return new TodoCommand(result.get(0));
+        case TodoCommand.COMMAND_WORD:
+            return new TodoCommand(result.get(0));
 
-            case DeadlineCommand.COMMAND_WORD:
-                return new DeadlineCommand(result.get(0), result.get(1));
+        case DeadlineCommand.COMMAND_WORD:
+            return new DeadlineCommand(result.get(0), result.get(1));
 
-            case EventCommand.COMMAND_WORD:
-                return new EventCommand(result.get(0), result.get(1), result.get(2));
+        case EventCommand.COMMAND_WORD:
+            return new EventCommand(result.get(0), result.get(1), result.get(2));
 
-            case DeleteCommand.COMMAND_WORD:
-                return new DeleteCommand(Integer.parseInt(result.get(0)));
+        case DeleteCommand.COMMAND_WORD:
+            return new DeleteCommand(Integer.parseInt(result.get(0)));
 
-            case ListCommand.COMMAND_WORD:
-                return new ListCommand();
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
 
-            case MarkCommand.COMMAND_WORD:
-                return new MarkCommand(Integer.parseInt(result.get(0)));
+        case MarkCommand.COMMAND_WORD:
+            return new MarkCommand(Integer.parseInt(result.get(0)));
 
-            case UnmarkCommand.COMMAND_WORD:
-                return new UnmarkCommand(Integer.parseInt(result.get(0)));
+        case UnmarkCommand.COMMAND_WORD:
+            return new UnmarkCommand(Integer.parseInt(result.get(0)));
 
-            case SearchByDateCommand.COMMAND_WORD:
-                return new SearchByDateCommand(result.get(0));
+        case FindCommand.COMMAND_WORD:
+            return new FindCommand(result.get(0));
 
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
+        case SearchByDateCommand.COMMAND_WORD:
+            return new SearchByDateCommand(result.get(0));
 
-            default:
-                throw new InvalidCommandException(command);
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
+
+        default:
+            throw new InvalidCommandException(command);
         }
     }
 }

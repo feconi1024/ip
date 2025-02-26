@@ -133,11 +133,23 @@ public class TaskList {
         return removedTask;
     }
 
+    public Iterator<Task> searchTaskByKeyword(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.getTaskName().toLowerCase().matches(".*" + keyword.toLowerCase() + ".*")) {
+                foundTasks.add(task);
+            }
+        }
+
+        return foundTasks.iterator();
+    }
+
     public Iterator<Task> searchTaskByDate(String date) {
         LocalDate d = FairyDateTimeFormatter.parseDate(date);
         ArrayList<Task> foundTasks = new ArrayList<>();
 
-        for (Task task : this.tasks) {
+        for (Task task : tasks) {
             if (task instanceof Deadline && ((Deadline) task).getEndTime().toLocalDate().equals(d)) {
                 foundTasks.add(task);
             } else if (task instanceof Event && !((d.isBefore(((Event) task).getStartTime().toLocalDate())) ||

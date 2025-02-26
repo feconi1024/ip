@@ -17,7 +17,7 @@ public class SearchByDateCommand extends Command {
 
     public static final String COMMAND_WORD = "searchByDate";
 
-    public final String date;
+    private final String date;
 
     public SearchByDateCommand(String date) {
         super();

@@ -21,6 +21,7 @@ public class Deadline extends Task {
         return "DEADLINE | " + super.toFileString() + " | " + FairyDateTimeFormatter.formatDateTimeFile(getEndTime());
     }
 
+    @Override
     public String toString(){
         return "[D]" + super.toString() + " (by: " + FairyDateTimeFormatter.formatDateTimePrint(getEndTime()) + ")";
     }

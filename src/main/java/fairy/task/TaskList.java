@@ -80,7 +80,7 @@ public class TaskList {
      * Marks a task as completed.
      *
      * @param index The index of the task in the list. Starts from 1.
-     * @return The task set to completed.
+     * @return The task set to complete.
      * @throws IndexOutOfBoundsException If the index is smaller than 1 or exceeds size of the list.
      */
     public Task markTask(int index) throws IndexOutOfBoundsException {

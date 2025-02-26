@@ -17,10 +17,10 @@ public class Fairy {
     public static final String NAME = "Fairy";
 
     /* Path of the task record file to be stored. */
-    private static final String FILE = "./data/fairytasks.txt";
+    public static final String FILE = "./data/fairytasks.txt";
 
     /* Directory of the task record file. Used to create the directory if it does not exist. */
-    private static final String DIR = "./data/";
+    public static final String DIR = "./data/";
 
     private final Storage storage;
     private final TaskList tasks;
@@ -29,7 +29,6 @@ public class Fairy {
     /**
      * Constructor of the application.
      * Initializes objects that are essential for the application.
-     *
      *
      * @param name Name of chatbot.
      * @param filePath Path to file storing records of tasks.

@@ -28,6 +28,7 @@ public class Event extends Task {
                 + " | " + FairyDateTimeFormatter.formatDateTimeFile(getEndTime());
     }
 
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + FairyDateTimeFormatter.formatDateTimePrint(getStartTime())
                 + ", to: " + FairyDateTimeFormatter.formatDateTimePrint(getEndTime()) + ")";

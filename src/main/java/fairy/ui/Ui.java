@@ -34,57 +34,57 @@ public class Ui {
         this.out = out;
     }
 
-    public void printEmptyLine() {
+    public void showEmptyLine() {
         out.println();
     }
 
-    public void printIndent(String content) {
+    public void showIndentation(String content) {
         out.print(content.indent(4));
     }
 
-    public void printStandardFormat(String content) {
-        printEmptyLine();
-        printIndent(content);
-        printEmptyLine();
+    public void showStandardFormat(String content) {
+        showEmptyLine();
+        showIndentation(content);
+        showEmptyLine();
     }
 
-    public void greetMessage() {
-        printStandardFormat(String.format(Messages.MESSAGE_GREETING, name));
+    public void showGreetMessage() {
+        showStandardFormat(String.format(Messages.MESSAGE_GREETING, name));
     }
 
-    public void exitMessage() {
-        printStandardFormat(Messages.MESSAGE_EXIT);
+    public void showExitMessage() {
+        showStandardFormat(Messages.MESSAGE_EXIT);
     }
 
-    public void indexOutOfBoundsMessage(String message) {
-        printStandardFormat(String.format(Messages.MESSAGE_INDEX_OUT_OF_BOUNDS, message));
+    public void showIndexOutOfBoundsMessage(String message) {
+        showStandardFormat(String.format(Messages.MESSAGE_INDEX_OUT_OF_BOUNDS, message));
     }
 
-    public void commandNotFoundMessage(String command) {
-        printStandardFormat(String.format(Messages.MESSAGE_COMMAND_NOT_FOUND, command));
+    public void showCommandNotFoundMessage(String command) {
+        showStandardFormat(String.format(Messages.MESSAGE_COMMAND_NOT_FOUND, command));
     }
 
-    public void argumentExceptionMessage() {
-        printStandardFormat(Messages.MESSAGE_ARGUMENT_EXCEPTION);
+    public void showArgumentExceptionMessage() {
+        showStandardFormat(Messages.MESSAGE_ARGUMENT_EXCEPTION);
     }
 
-    public void numberParseExceptionMessage() {
-        printStandardFormat(Messages.MESSAGE_NUMBER_PARSE_EXCEPTION);
+    public void showNumberParseExceptionMessage() {
+        showStandardFormat(Messages.MESSAGE_NUMBER_PARSE_EXCEPTION);
     }
 
-    public void generalExceptionMessage(String message) {
-        printStandardFormat(String.format(Messages.MESSAGE_GENERAL_EXCEPTION, message));
+    public void showGeneralExceptionMessage(String message) {
+        showStandardFormat(String.format(Messages.MESSAGE_GENERAL_EXCEPTION, message));
     }
 
-    public void dateTimeExceptionMessage(DateTimeException e) {
+    public void showDateTimeExceptionMessage(DateTimeException e) {
         if (e instanceof DateTimeParseException) {
-            printStandardFormat(Messages.MESSAGE_DATETIME_PARSE_EXCEPTION);
+            showStandardFormat(Messages.MESSAGE_DATETIME_PARSE_EXCEPTION);
         } else {
-            printStandardFormat(String.format(Messages.MESSAGE_DATETIME_EXCEPTION, e.getMessage()));
+            showStandardFormat(String.format(Messages.MESSAGE_DATETIME_EXCEPTION, e.getMessage()));
         }
     }
 
-    public String prompt() {
+    public String getUserCommand() {
         out.print("> ");
         return in.nextLine().trim();
     }

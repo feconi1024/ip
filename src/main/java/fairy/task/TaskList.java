@@ -137,7 +137,7 @@ public class TaskList {
         LocalDate d = FairyDateTimeFormatter.parseDate(date);
         ArrayList<Task> foundTasks = new ArrayList<>();
 
-        for (Task task : this.tasks) {
+        for (Task task : tasks) {
             if (task instanceof Deadline && ((Deadline) task).getEndTime().toLocalDate().equals(d)) {
                 foundTasks.add(task);
             } else if (task instanceof Event && !((d.isBefore(((Event) task).getStartTime().toLocalDate())) ||

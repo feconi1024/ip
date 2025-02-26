@@ -38,17 +38,17 @@ public class Storage {
             }
             reader.close();
             if (effectiveLines != totalLines) {
-                ui.printStandardFormat(String.format(MESSAGE_RECORD_ADDED + MESSAGE_FAILURES_EXIST,
+                ui.showStandardFormat(String.format(MESSAGE_RECORD_ADDED + MESSAGE_FAILURES_EXIST,
                         effectiveLines, totalLines));
             } else {
-                ui.printStandardFormat(String.format(MESSAGE_RECORD_ADDED,
+                ui.showStandardFormat(String.format(MESSAGE_RECORD_ADDED,
                         totalLines, effectiveLines));
             }
 
         } catch (FileNotFoundException e) {
-            ui.printStandardFormat(MESSAGE_FILE_NOT_FOUND);
+            ui.showStandardFormat(MESSAGE_FILE_NOT_FOUND);
         } catch (IOException e) {
-            ui.printStandardFormat(MESSAGE_IO_EXCEPTION + e.getMessage());
+            ui.showStandardFormat(MESSAGE_IO_EXCEPTION + e.getMessage());
         }
     }
 
@@ -64,9 +64,9 @@ public class Storage {
                 writer.write(task.toFileString() + "\n");
             }
             writer.close();
-            ui.printStandardFormat(MESSAGE_RECORD_SAVED);
+            ui.showStandardFormat(MESSAGE_RECORD_SAVED);
         } catch (IOException e) {
-            ui.printStandardFormat(MESSAGE_ERROR_SAVING + e.getMessage());
+            ui.showStandardFormat(MESSAGE_ERROR_SAVING + e.getMessage());
         }
     }
 }

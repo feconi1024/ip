@@ -28,13 +28,13 @@ public class SearchByDateCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             Iterator<Task> taskIterator = taskList.searchTaskByDate(date);
-            ui.printStandardFormat(Messages.MESSAGE_LIST_INTRO + FairyTaskListOutputFormatter.formatTaskList(taskIterator));
+            ui.showStandardFormat(Messages.MESSAGE_LIST_INTRO + FairyTaskListOutputFormatter.formatTaskList(taskIterator));
         } catch (DateTimeParseException e) {
-            ui.printStandardFormat(Messages.MESSAGE_DATE_PARSE_EXCEPTION);
+            ui.showStandardFormat(Messages.MESSAGE_DATE_PARSE_EXCEPTION);
         } catch (DateTimeException e) {
-            ui.printStandardFormat(String.format(Messages.MESSAGE_DATETIME_EXCEPTION, e.getMessage()));
+            ui.showStandardFormat(String.format(Messages.MESSAGE_DATETIME_EXCEPTION, e.getMessage()));
         } catch (EmptyListException e) {
-            ui.printStandardFormat(Messages.MESSAGE_NO_TASKS_FOUND);
+            ui.showStandardFormat(Messages.MESSAGE_NO_TASKS_FOUND);
         }
     }
 }

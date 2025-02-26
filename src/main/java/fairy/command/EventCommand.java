@@ -30,12 +30,12 @@ public class EventCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             Task task = taskList.addEvent(taskName, startTime, endTime);
-            ui.printStandardFormat(String.format(Messages.MESSAGE_ADD_TASK_SUCCESS,
+            ui.showStandardFormat(String.format(Messages.MESSAGE_ADD_TASK_SUCCESS,
                     task.toString().indent(TASK_INDENT), taskList.size()));
         } catch (DateTimeParseException e) {
-            ui.printStandardFormat(Messages.MESSAGE_DATETIME_PARSE_EXCEPTION);
+            ui.showStandardFormat(Messages.MESSAGE_DATETIME_PARSE_EXCEPTION);
         } catch (DateTimeException e) {
-            ui.printStandardFormat(String.format(Messages.MESSAGE_DATETIME_EXCEPTION, e.getMessage()));
+            ui.showStandardFormat(String.format(Messages.MESSAGE_DATETIME_EXCEPTION, e.getMessage()));
         }
     }
 }

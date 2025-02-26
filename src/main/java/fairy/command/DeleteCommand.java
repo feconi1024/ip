@@ -26,9 +26,9 @@ public class DeleteCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             Task task = taskList.deleteTask(taskIndex);
-            ui.printStandardFormat(String.format(MESSAGE_SUCCESS, task.toString().indent(TASK_INDENT), taskList.size()));
+            ui.showStandardFormat(String.format(MESSAGE_SUCCESS, task.toString().indent(TASK_INDENT), taskList.size()));
         } catch (IndexOutOfBoundsException e) {
-            ui.printStandardFormat(String.format(MESSAGE_INDEX_OUT_OF_BOUNDS, taskIndex));
+            ui.showStandardFormat(String.format(MESSAGE_INDEX_OUT_OF_BOUNDS, taskIndex));
         }
     }
 }

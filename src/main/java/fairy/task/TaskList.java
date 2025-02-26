@@ -227,6 +227,25 @@ public class TaskList {
     }
 
     /**
+     * Searches tasks by the given keyword.
+     * Case-insensitive. Match any substring in task descriptions that is the same as the keyword.
+     *
+     * @param keyword Word used for searching.
+     * @return Iterator of a list of tasks with description containing the keyword.
+     */
+    public Iterator<Task> searchTaskByKeyword(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.getTaskName().toLowerCase().matches(".*" + keyword.toLowerCase() + ".*")) {
+                foundTasks.add(task);
+            }
+        }
+
+        return foundTasks.iterator();
+    }
+
+    /**
      * Searches tasks by the given date.
      * Returns deadlines that ends at the date given, or events happening at the date given.
      *

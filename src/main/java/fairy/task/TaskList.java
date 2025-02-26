@@ -36,17 +36,17 @@ public class TaskList {
         String[] args = record.split(" \\| ");
         try {
             switch (args[0]) {
-                case "TODO":
-                    addToDoFromRecord(args[2], args[1]);
-                    break;
-                case "DEADLINE":
-                    addDeadlineFromRecord(args[2], args[3], args[1]);
-                    break;
-                case "EVENT":
-                    addEventFromRecord(args[2], args[3], args[4], args[1]);
-                    break;
-                default:
-                    return 0;
+            case "TODO":
+                addToDoFromRecord(args[2], args[1]);
+                break;
+            case "DEADLINE":
+                addDeadlineFromRecord(args[2], args[3], args[1]);
+                break;
+            case "EVENT":
+                addEventFromRecord(args[2], args[3], args[4], args[1]);
+                break;
+            default:
+                return 0;
             }
         } catch (Exception e) {
             return 0;
@@ -99,10 +99,12 @@ public class TaskList {
     public Event addEvent(String task, String startTime, String endTime) throws DateTimeException {
         LocalDateTime start = FairyDateTimeFormatter.parseDateTime(startTime);
         LocalDateTime end = FairyDateTimeFormatter.parseDateTime(endTime);
+
         // start should be no later than end
         if (end.isBefore(start)) {
             throw new DateTimeException("Start time is after end time");
         }
+
         Event newTask = new Event(task, start, end);
         tasks.add(newTask);
         return newTask;
@@ -112,11 +114,13 @@ public class TaskList {
             throws DateTimeException {
         LocalDateTime start = FairyDateTimeFormatter.parseDateTime(startTime);
         LocalDateTime end = FairyDateTimeFormatter.parseDateTime(endTime);
+
         // start should be no later than end
         if (end.isBefore(start)) {
             throw new DateTimeException("Start time is after end time.");
         }
         Event newTask = new Event(task, start, end);
+
         if (done.equals("T")) {
             newTask.setDo();
         } else {
@@ -129,8 +133,7 @@ public class TaskList {
         if (index > tasks.size()) {
             throw new IndexOutOfBoundsException("input " + index + " exceeds the size of list: " + tasks.size());
         }
-        Task removedTask = tasks.remove(index - 1);
-        return removedTask;
+        return tasks.remove(index - 1);
     }
 
     public Iterator<Task> searchTaskByDate(String date) {

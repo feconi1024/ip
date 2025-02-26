@@ -43,7 +43,7 @@ public class Ui {
      * @param out Output interface.
      */
     public Ui(InputStream in, PrintStream out) {
-        this (DEFAULT_NAME, in, out);
+        this(DEFAULT_NAME, in, out);
     }
 
     /**
@@ -62,7 +62,7 @@ public class Ui {
     }
 
     /**
-     * Show the content with an indentation.
+     * Shows the content with an indentation.
      *
      * @param content Content to be shown.
      */
@@ -71,7 +71,7 @@ public class Ui {
     }
 
     /**
-     * Show the content with blank lines above and below and default indentation.
+     * Shows the content with blank lines above and below and default indentation.
      *
      * @param content Content to be shown.
      */

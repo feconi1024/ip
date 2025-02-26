@@ -32,11 +32,15 @@ public class Storage {
             String line;
             int effectiveLines = 0;
             int totalLines = 0;
+
+            // read file
             while ((line = reader.readLine()) != null) {
                 effectiveLines += taskList.addTaskFromRecord(line);
                 totalLines += 1;
             }
             reader.close();
+
+            // UI output
             if (effectiveLines != totalLines) {
                 ui.showStandardFormat(String.format(MESSAGE_RECORD_ADDED + MESSAGE_FAILURES_EXIST,
                         effectiveLines, totalLines));
@@ -54,9 +58,12 @@ public class Storage {
 
     public void saveFile(TaskList taskList, Ui ui) {
         File dir = new File(directory);
+
+        // create target directory if does not exist
         if (!dir.exists()) {
             dir.mkdirs();
         }
+
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
             for (Iterator<Task> it = taskList.iterator(); it.hasNext(); ) {

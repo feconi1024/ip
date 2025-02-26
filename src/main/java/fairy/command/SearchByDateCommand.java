@@ -28,7 +28,8 @@ public class SearchByDateCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             Iterator<Task> taskIterator = taskList.searchTaskByDate(date);
-            ui.showStandardFormat(Messages.MESSAGE_LIST_INTRO + FairyTaskListOutputFormatter.formatTaskList(taskIterator));
+            ui.showStandardFormat(Messages.MESSAGE_LIST_INTRO
+                    + FairyTaskListOutputFormatter.formatTaskList(taskIterator));
         } catch (DateTimeParseException e) {
             ui.showStandardFormat(Messages.MESSAGE_DATE_PARSE_EXCEPTION);
         } catch (DateTimeException e) {

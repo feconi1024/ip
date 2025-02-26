@@ -40,37 +40,17 @@ public class CommandParser {
         }
 
         // Return respective commands
-        switch (command) {
-
-            case TodoCommand.COMMAND_WORD:
-                return new TodoCommand(result.get(0));
-
-            case DeadlineCommand.COMMAND_WORD:
-                return new DeadlineCommand(result.get(0), result.get(1));
-
-            case EventCommand.COMMAND_WORD:
-                return new EventCommand(result.get(0), result.get(1), result.get(2));
-
-            case DeleteCommand.COMMAND_WORD:
-                return new DeleteCommand(Integer.parseInt(result.get(0)));
-
-            case ListCommand.COMMAND_WORD:
-                return new ListCommand();
-
-            case MarkCommand.COMMAND_WORD:
-                return new MarkCommand(Integer.parseInt(result.get(0)));
-
-            case UnmarkCommand.COMMAND_WORD:
-                return new UnmarkCommand(Integer.parseInt(result.get(0)));
-
-            case SearchByDateCommand.COMMAND_WORD:
-                return new SearchByDateCommand(result.get(0));
-
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
-
-            default:
-                throw new InvalidCommandException(command);
-        }
+        return switch (command) {
+            case TodoCommand.COMMAND_WORD -> new TodoCommand(result.get(0));
+            case DeadlineCommand.COMMAND_WORD -> new DeadlineCommand(result.get(0), result.get(1));
+            case EventCommand.COMMAND_WORD -> new EventCommand(result.get(0), result.get(1), result.get(2));
+            case DeleteCommand.COMMAND_WORD -> new DeleteCommand(Integer.parseInt(result.get(0)));
+            case ListCommand.COMMAND_WORD -> new ListCommand();
+            case MarkCommand.COMMAND_WORD -> new MarkCommand(Integer.parseInt(result.get(0)));
+            case UnmarkCommand.COMMAND_WORD -> new UnmarkCommand(Integer.parseInt(result.get(0)));
+            case SearchByDateCommand.COMMAND_WORD -> new SearchByDateCommand(result.get(0));
+            case ExitCommand.COMMAND_WORD -> new ExitCommand();
+            default -> throw new InvalidCommandException(command);
+        };
     }
 }

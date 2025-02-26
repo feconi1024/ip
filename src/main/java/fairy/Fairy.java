@@ -24,8 +24,11 @@ public class Fairy {
     }
 
     public void run() {
+        // start application
         ui.showGreetMessage();
         boolean isExit = false;
+
+        // repeatedly prompt for and process commands
         while (!isExit) {
             try {
                 String fullCommand = ui.getUserCommand();
@@ -42,6 +45,8 @@ public class Fairy {
                 ui.showGeneralExceptionMessage(e.getMessage());
             }
         }
+
+        // save and exit
         storage.saveFile(tasks, ui);
         ui.showExitMessage();
     }

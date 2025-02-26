@@ -24,26 +24,31 @@ public class Fairy {
     }
 
     public void run() {
-        ui.greetMessage();
+        // start application
+        ui.showGreetMessage();
         boolean isExit = false;
+
+        // repeatedly prompt for and process commands
         while (!isExit) {
             try {
-                String fullCommand = ui.prompt();
+                String fullCommand = ui.getUserCommand();
                 Command c = CommandParser.parseCommand(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (IndexOutOfBoundsException e) {
-                ui.argumentExceptionMessage();
+                ui.showArgumentExceptionMessage();
             } catch (NumberFormatException e) {
-                ui.numberParseExceptionMessage();
+                ui.showNumberParseExceptionMessage();
             } catch (InvalidCommandException e) {
-                ui.commandNotFoundMessage(e.getMessage());
+                ui.showCommandNotFoundMessage(e.getMessage());
             } catch (Exception e) {
-                ui.generalExceptionMessage(e.getMessage());
+                ui.showGeneralExceptionMessage(e.getMessage());
             }
         }
+
+        // save and exit
         storage.saveFile(tasks, ui);
-        ui.exitMessage();
+        ui.showExitMessage();
     }
 
     public static void main(String[] args) {

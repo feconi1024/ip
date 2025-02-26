@@ -23,7 +23,7 @@ public class TodoCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         Task task = taskList.addToDo(taskName);
-        ui.printStandardFormat(String.format(Messages.MESSAGE_ADD_TASK_SUCCESS,
+        ui.showStandardFormat(String.format(Messages.MESSAGE_ADD_TASK_SUCCESS,
                 task.toString().indent(TASK_INDENT), taskList.size()));
     }
 }

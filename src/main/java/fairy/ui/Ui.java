@@ -8,26 +8,49 @@ import java.util.Scanner;
 
 import fairy.common.Messages;
 
+/**
+ * Text UI of the application.
+ */
 public class Ui {
 
+    /* Default name of the chatbot. */
     private static final String DEFAULT_NAME = "Fairy";
 
     private final String name;
     private final Scanner in;
     private final PrintStream out;
 
+    /**
+     * Constructor using default chatbot name, input and output interfaces.
+     */
     public Ui() {
         this(DEFAULT_NAME, System.in, System.out);
     }
 
+    /**
+     * Constructor using default input and output interfaces.
+     *
+     * @param name Name of the chatbot.
+     */
     public Ui(String name) {
         this(name, System.in, System.out);
     }
 
+    /**
+     * Constructor using default chatbot name.
+     *
+     * @param in Input interface.
+     * @param out Output interface.
+     */
     public Ui(InputStream in, PrintStream out) {
         this (DEFAULT_NAME, in, out);
     }
 
+    /**
+     * @param name Name of the chatbot.
+     * @param in Input interface.
+     * @param out Output interface.
+     */
     public Ui(String name, InputStream in, PrintStream out) {
         this.name = name;
         this.in = new Scanner(in);
@@ -38,10 +61,20 @@ public class Ui {
         out.println();
     }
 
+    /**
+     * Show the content with an indentation.
+     *
+     * @param content Content to be shown.
+     */
     public void printIndent(String content) {
         out.print(content.indent(4));
     }
 
+    /**
+     * Show the content with blank lines above and below and default indentation.
+     *
+     * @param content Content to be shown.
+     */
     public void printStandardFormat(String content) {
         printEmptyLine();
         printIndent(content);
@@ -84,6 +117,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Prompts for the command and reads the text entered by the user.
+     *
+     * @return Command entered by the user.
+     */
     public String prompt() {
         out.print("> ");
         return in.nextLine().trim();

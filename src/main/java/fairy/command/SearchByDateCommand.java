@@ -1,17 +1,15 @@
 package fairy.command;
 
-import fairy.common.utils.FairyTaskListOutputFormatter;
-import fairy.exception.EmptyListException;
-
 import java.time.DateTimeException;
 import java.time.format.DateTimeParseException;
 import java.util.Iterator;
 
 import fairy.common.Messages;
+import fairy.common.utils.FairyTaskListOutputFormatter;
+import fairy.exception.EmptyListException;
 import fairy.storage.Storage;
 import fairy.task.Task;
 import fairy.task.TaskList;
-import fairy.ui.Ui;
 
 /**
  * Represents a command of searching tasks in list with given date information.
@@ -28,17 +26,17 @@ public class SearchByDateCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         try {
-            Iterator<Task> taskIterator = taskList.searchTaskByDate(date);
-            ui.showStandardFormat(Messages.MESSAGE_LIST_INTRO
-                    + FairyTaskListOutputFormatter.formatTaskList(taskIterator));
+            Iterator<Task> taskIterator = tasks.searchTaskByDate(date);
+            return Messages.MESSAGE_LIST_INTRO
+                    + FairyTaskListOutputFormatter.formatTaskList(taskIterator);
         } catch (DateTimeParseException e) {
-            ui.showStandardFormat(Messages.MESSAGE_DATE_PARSE_EXCEPTION);
+            return Messages.MESSAGE_DATE_PARSE_EXCEPTION;
         } catch (DateTimeException e) {
-            ui.showStandardFormat(String.format(Messages.MESSAGE_DATETIME_EXCEPTION, e.getMessage()));
+            return String.format(Messages.MESSAGE_DATETIME_EXCEPTION, e.getMessage());
         } catch (EmptyListException e) {
-            ui.showStandardFormat(Messages.MESSAGE_NO_TASKS_FOUND);
+            return Messages.MESSAGE_NO_TASKS_FOUND;
         }
     }
 }

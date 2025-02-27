@@ -5,6 +5,7 @@ import fairy.exception.InvalidCommandException;
 import fairy.parser.CommandParser;
 import fairy.storage.Storage;
 import fairy.task.TaskList;
+import fairy.ui.Gui;
 import fairy.ui.Ui;
 
 
@@ -25,6 +26,14 @@ public class Fairy {
     private final Storage storage;
     private final TaskList tasks;
     private final Ui ui;
+    private boolean isExitRequested = false;
+
+    /**
+     * Simple constructor with no argument, using default values.
+     */
+    public Fairy() {
+        this(NAME, FILE, DIR);
+    }
 
     /**
      * Constructor of the application.
@@ -41,8 +50,12 @@ public class Fairy {
         storage.readFile(tasks, ui);
     }
 
+    public boolean shouldExit() {
+        return isExitRequested;
+    }
+
     /**
-     * Runs the chatbot.
+     * Runs the chatbot in text UI.
      */
     public void run() {
         // start application
@@ -54,7 +67,7 @@ public class Fairy {
             try {
                 String fullCommand = ui.getUserCommand();
                 Command c = CommandParser.parseCommand(fullCommand);
-                c.execute(tasks, ui, storage);
+                c.executeTextUi(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (IndexOutOfBoundsException e) {
                 ui.showArgumentExceptionMessage();
@@ -70,6 +83,33 @@ public class Fairy {
         // save and exit
         storage.saveFile(tasks, ui);
         ui.showExitMessage();
+    }
+
+    /**
+     * Runs the chatbot in GUI.
+     * Executes the command, gets the result and passes to GUI.
+     *
+     * @param fullCommand Command input from the user.
+     * @return The result of command execution.
+     */
+    public String getResponse(String fullCommand) {
+        try {
+            Command c = CommandParser.parseCommand(fullCommand);
+            if (c.isExit()) {
+                // save and exit
+                isExitRequested = true;
+                storage.saveFile(tasks, ui);
+            }
+            return c.execute(tasks, storage);
+        } catch (IndexOutOfBoundsException e) {
+            return Gui.getArgumentExceptionMessage();
+        } catch (NumberFormatException e) {
+            return Gui.getNumberParseExceptionMessage();
+        } catch (InvalidCommandException e) {
+            return Gui.getCommandNotFoundMessage(e.getMessage());
+        } catch (Exception e) {
+            return Gui.getGeneralExceptionMessage(e.getMessage());
+        }
     }
 
     public static void main(String[] args) {

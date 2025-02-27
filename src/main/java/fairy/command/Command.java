@@ -12,13 +12,24 @@ public abstract class Command {
     public Command() {};
 
     /**
-     * Executes the command and shows the result on UI.
+     * Executes the command and shows the result on text UI.
      *
      * @param tasks List of tasks.
      * @param ui User interface to interact with.
      * @param storage File storing task records.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage);
+    public void executeTextUi(TaskList tasks, Ui ui, Storage storage) {
+        ui.showStandardFormat(execute(tasks, storage));
+    }
+
+    /**
+     * Executes the command.
+     *
+     * @param tasks List of tasks.
+     * @param storage File storing task records.
+     * @return Output of the result.
+     */
+    public abstract String execute(TaskList tasks, Storage storage);
 
     /**
      * Returns indication of exit command.

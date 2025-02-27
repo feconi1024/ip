@@ -5,6 +5,7 @@ import fairy.exception.InvalidCommandException;
 import fairy.parser.CommandParser;
 import fairy.storage.Storage;
 import fairy.task.TaskList;
+import fairy.ui.Gui;
 import fairy.ui.Ui;
 
 
@@ -79,8 +80,19 @@ public class Fairy {
         ui.showExitMessage();
     }
 
-    public String getResponse(String command) {
-
+    public String getResponse(String fullCommand) {
+        try {
+            Command c = CommandParser.parseCommand(fullCommand);
+            return c.execute(tasks, storage);
+        } catch (IndexOutOfBoundsException e) {
+            return Gui.getArgumentExceptionMessage();
+        } catch (NumberFormatException e) {
+            return Gui.getNumberParseExceptionMessage();
+        } catch (InvalidCommandException e) {
+            return Gui.getCommandNotFoundMessage(e.getMessage());
+        } catch (Exception e) {
+            return Gui.getGeneralExceptionMessage(e.getMessage());
+        }
     }
 
     public static void main(String[] args) {

@@ -18,14 +18,6 @@ public class Gui {
         return String.format(Messages.MESSAGE_GREETING, DEFAULT_NAME);
     }
 
-    public static String getExitMessage() {
-        return Messages.MESSAGE_EXIT;
-    }
-
-    public static String getIndexOutOfBoundsMessage(String message) {
-        return String.format(Messages.MESSAGE_INDEX_OUT_OF_BOUNDS, message);
-    }
-
     public static String getCommandNotFoundMessage(String command) {
         return String.format(Messages.MESSAGE_COMMAND_NOT_FOUND, command);
     }
@@ -40,13 +32,5 @@ public class Gui {
 
     public static String getGeneralExceptionMessage(String message) {
         return String.format(Messages.MESSAGE_GENERAL_EXCEPTION, message);
-    }
-
-    public static String getDateTimeExceptionMessage(DateTimeException e) {
-        if (e instanceof DateTimeParseException) {
-            return Messages.MESSAGE_DATETIME_PARSE_EXCEPTION;
-        } else {
-            return String.format(Messages.MESSAGE_DATETIME_EXCEPTION, e.getMessage());
-        }
     }
 }

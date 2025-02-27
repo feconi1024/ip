@@ -13,6 +13,7 @@ public class FixdurCommand extends Command {
     public static final String COMMAND_WORD = "fixdur";
 
     public static final String MESSAGE_ARITHMETIC_EXCEPTION = "Arithmetic exception: Input too big or illegal.";
+    public static final String MESSAGE_ILLEGAL_ARGUMENT = "Illegal argument: Duration must be positive.";
 
     /* Indentation of task information when being shown. */
     public static final int TASK_INDENT = 2;
@@ -33,6 +34,8 @@ public class FixdurCommand extends Command {
                     task.toString().indent(TASK_INDENT), tasks.size());
         } catch (ArithmeticException e) {
             return MESSAGE_ARITHMETIC_EXCEPTION;
+        } catch (IllegalArgumentException e) {
+            return MESSAGE_ILLEGAL_ARGUMENT;
         }
     }
 }

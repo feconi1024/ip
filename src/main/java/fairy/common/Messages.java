@@ -21,7 +21,7 @@ public class Messages {
     public static final String MESSAGE_LIST_INTRO = "Tasks found are listed as follows:\n";
     public static final String MESSAGE_NO_TASKS_FOUND = "No tasks found.";
     public static final String MESSAGE_NUMBER_PARSE_EXCEPTION = "Number parse exception: "
-            + "Integer (or long in case of duration) number expected as argument.";
+            + "Integer number expected as argument.";
     public static final String MESSAGE_EXIT = "Goodbye, Master. Hope to see you again soon!";
 
 }

@@ -32,17 +32,6 @@ public class TaskList {
     }
 
     /**
-     * Retrieves a task.
-     *
-     * @param index The index of the task in the list. Starts from 1.
-     * @return The task at the index given.
-     * @throws IndexOutOfBoundsException If the index is smaller than 1 or exceeds size of the list.
-     */
-    public Task getTask(int index) throws IndexOutOfBoundsException {
-        return this.tasks.get(index - 1);
-    }
-
-    /**
      * Returns the iterator for iteration of task in list.
      *
      * @return Iterator of the list of tasks.
@@ -224,9 +213,6 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the index is smaller than 1 or exceeds size of the list.
      */
     public Task deleteTask(int index) throws IndexOutOfBoundsException {
-        if (index > tasks.size()) {
-            throw new IndexOutOfBoundsException("input " + index + " exceeds the size of list: " + tasks.size());
-        }
         return tasks.remove(index - 1);
     }
 

@@ -5,7 +5,7 @@ package fairy.task;
  */
 public class Task {
     private final String taskName;
-    private boolean isDone;
+    private boolean isDone = false;
 
     /**
      * Constructs the task. Task is set to uncompleted when initialized.
@@ -14,7 +14,6 @@ public class Task {
      */
     public Task(String taskName) {
         this.taskName = taskName;
-        this.isDone = false;
     }
 
     public String getTaskName() {
@@ -33,15 +32,6 @@ public class Task {
      */
     public void setUndo() {
         isDone = false;
-    }
-
-    /**
-     * Returns the completion status of the task.
-     *
-     * @return Completion status of the task. {@code True} if the task is completed.
-     */
-    public boolean getIsDone() {
-        return isDone;
     }
 
     /**

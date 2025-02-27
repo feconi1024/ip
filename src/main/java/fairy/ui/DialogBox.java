@@ -1,3 +1,5 @@
+/* Source: https://se-education.org/guides/tutorials/javaFxPart4.html */
+
 package fairy.ui;
 
 import java.io.IOException;

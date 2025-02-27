@@ -1,3 +1,5 @@
+/* Source: https://se-education.org/guides/tutorials/javaFxPart4.html */
+
 package fairy;
 
 import java.io.IOException;
@@ -20,6 +22,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Fairy");
             fxmlLoader.<MainWindow>getController().setFairy(fairy);
             stage.show();
         } catch (IOException e) {

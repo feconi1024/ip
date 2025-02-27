@@ -2,8 +2,6 @@ package fairy.ui;
 
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.time.DateTimeException;
-import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import fairy.common.Messages;

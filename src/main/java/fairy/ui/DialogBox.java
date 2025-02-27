@@ -22,6 +22,10 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * @param s Message sent by the user.
+     * @param i Avatar of the user.
+     */
     public DialogBox(String s, Image i) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));

@@ -55,7 +55,7 @@ public class Fairy {
     }
 
     /**
-     * Runs the chatbot.
+     * Runs the chatbot in text UI.
      */
     public void run() {
         // start application
@@ -85,6 +85,13 @@ public class Fairy {
         ui.showExitMessage();
     }
 
+    /**
+     * Runs the chatbot in GUI.
+     * Executes the command, gets the result and passes to GUI.
+     *
+     * @param fullCommand Command input from the user.
+     * @return The result of command execution.
+     */
     public String getResponse(String fullCommand) {
         try {
             Command c = CommandParser.parseCommand(fullCommand);

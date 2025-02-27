@@ -227,8 +227,9 @@ public class TaskList {
         ArrayList<Task> foundTasks = new ArrayList<>();
 
         for (Task task : tasks) {
-            if (task.getTaskName().toLowerCase().matches(REGEX_KEYWORD_MATCH + keyword.toLowerCase()
-                    + REGEX_KEYWORD_MATCH)) {
+            String taskNameLower = task.getTaskName().toLowerCase();
+            String keywordRegexLower = REGEX_KEYWORD_MATCH + keyword.toLowerCase() + REGEX_KEYWORD_MATCH;
+            if (taskNameLower.matches(keywordRegexLower)) {
                 foundTasks.add(task);
             }
         }
@@ -248,10 +249,21 @@ public class TaskList {
         ArrayList<Task> foundTasks = new ArrayList<>();
 
         for (Task task : tasks) {
-            if (task instanceof Deadline && ((Deadline) task).getEndTime().toLocalDate().equals(d)) {
-                foundTasks.add(task);
-            } else if (task instanceof Event && !((d.isBefore(((Event) task).getStartTime().toLocalDate())) ||
-                    d.isAfter(((Event) task).getEndTime().toLocalDate()))) {
+            boolean isDeadline = task instanceof Deadline;
+            boolean isEvent = task instanceof Event;
+            boolean isOnDeadline = false;
+            boolean isBeforeEvent = true;
+            boolean isAfterEvent = true;
+
+            // whether event is on the date
+            if (isDeadline) {
+                isOnDeadline = ((Deadline) task).getEndTime().toLocalDate().equals(d);
+            } else if (isEvent) {
+                isBeforeEvent = d.isBefore(((Event) task).getStartTime().toLocalDate());
+                isAfterEvent = d.isAfter(((Event) task).getEndTime().toLocalDate());
+            }
+
+            if (isOnDeadline || !(isBeforeEvent || isAfterEvent)) {
                 foundTasks.add(task);
             }
         }

@@ -224,7 +224,12 @@ public class TaskList {
      * @param duration Duration of the task in hours.
      * @return The task added to the list.
      */
-    public FixedDurationTask addFixedDuration(String task, long duration) {
+    public FixedDurationTask addFixedDuration(String task, long duration) throws IllegalArgumentException {
+        if (duration <= 0) {
+            // duration must be positive
+            throw new IllegalArgumentException();
+        }
+
         FixedDurationTask newTask = new FixedDurationTask(task, Duration.ofHours(duration));
         tasks.add(newTask);
         return newTask;
@@ -239,6 +244,11 @@ public class TaskList {
      * @param done The task added to the list.
      */
     public void addFixedDurationFromRecord(String task, String duration, String done) {
+        if (Long.parseLong(duration) <= 0) {
+            // duration must be positive
+            throw new IllegalArgumentException();
+        }
+
         FixedDurationTask newTask = new FixedDurationTask(task, Duration.ofHours(Long.parseLong(duration)));
 
         assert done.equals("T") || done.equals("F");

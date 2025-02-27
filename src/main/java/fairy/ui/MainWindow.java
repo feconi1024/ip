@@ -17,7 +17,7 @@ import javafx.util.Duration;
 public class MainWindow extends AnchorPane {
 
     public static final String USER_IMAGE_PATH = "/images/DaUser.png";
-    public static final String FAIRY_IMAGE_PATH = "/images/DaDuke.png";
+    public static final String FAIRY_IMAGE_PATH = "/images/DaFairy.png";
 
     @FXML
     private ScrollPane scrollPane;

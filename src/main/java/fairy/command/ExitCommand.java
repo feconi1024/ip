@@ -1,8 +1,8 @@
 package fairy.command;
 
+import fairy.common.Messages;
 import fairy.storage.Storage;
 import fairy.task.TaskList;
-import fairy.ui.Ui;
 
 /**
  * Represents a command of exiting from the application.
@@ -16,7 +16,9 @@ public class ExitCommand extends Command {
     };
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {};
+    public String execute(TaskList tasks, Storage storage) {
+        return Messages.MESSAGE_EXIT;
+    };
 
     @Override
     public boolean isExit() {

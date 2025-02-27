@@ -8,7 +8,6 @@ import fairy.exception.EmptyListException;
 import fairy.storage.Storage;
 import fairy.task.Task;
 import fairy.task.TaskList;
-import fairy.ui.Ui;
 
 public class FindCommand extends Command {
 
@@ -22,13 +21,13 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         try {
-            Iterator<Task> taskIterator = taskList.searchTaskByKeyword(keyword);
-            ui.showStandardFormat(Messages.MESSAGE_LIST_INTRO
-                    + FairyTaskListOutputFormatter.formatTaskList(taskIterator));
+            Iterator<Task> taskIterator = tasks.searchTaskByKeyword(keyword);
+            return Messages.MESSAGE_LIST_INTRO
+                    + FairyTaskListOutputFormatter.formatTaskList(taskIterator);
         } catch (EmptyListException e) {
-            ui.showStandardFormat(Messages.MESSAGE_NO_TASKS_FOUND);
+            return Messages.MESSAGE_NO_TASKS_FOUND;
         }
     }
 }

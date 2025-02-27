@@ -13,6 +13,10 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class MainWindow extends AnchorPane {
+
+    public static final String USER_IMAGE_PATH = "/images/DaUser.png";
+    public static final String FAIRY_IMAGE_PATH = "/images/DaDuke.png";
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -24,8 +28,8 @@ public class MainWindow extends AnchorPane {
 
     private Fairy fairy;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image fairyImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream(USER_IMAGE_PATH));
+    private Image fairyImage = new Image(this.getClass().getResourceAsStream(FAIRY_IMAGE_PATH));
 
     @FXML
     public void initialize() {

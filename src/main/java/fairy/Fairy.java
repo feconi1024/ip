@@ -27,6 +27,13 @@ public class Fairy {
     private final Ui ui;
 
     /**
+     * Simple constructor with no argument, using default values.
+     */
+    public Fairy() {
+        this(NAME, FILE, DIR);
+    }
+
+    /**
      * Constructor of the application.
      * Initializes objects that are essential for the application.
      *
@@ -54,7 +61,7 @@ public class Fairy {
             try {
                 String fullCommand = ui.getUserCommand();
                 Command c = CommandParser.parseCommand(fullCommand);
-                c.execute(tasks, ui, storage);
+                c.executeTextUi(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (IndexOutOfBoundsException e) {
                 ui.showArgumentExceptionMessage();
@@ -70,6 +77,10 @@ public class Fairy {
         // save and exit
         storage.saveFile(tasks, ui);
         ui.showExitMessage();
+    }
+
+    public String getResponse(String command) {
+
     }
 
     public static void main(String[] args) {

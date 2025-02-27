@@ -7,7 +7,6 @@ import fairy.common.Messages;
 import fairy.storage.Storage;
 import fairy.task.Task;
 import fairy.task.TaskList;
-import fairy.ui.Ui;
 
 /**
  * Represents a command of adding an event to the list of tasks.
@@ -31,15 +30,15 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         try {
-            Task task = taskList.addEvent(taskName, startTime, endTime);
-            ui.showStandardFormat(String.format(Messages.MESSAGE_ADD_TASK_SUCCESS,
-                    task.toString().indent(TASK_INDENT), taskList.size()));
+            Task task = tasks.addEvent(taskName, startTime, endTime);
+            return String.format(Messages.MESSAGE_ADD_TASK_SUCCESS,
+                    task.toString().indent(TASK_INDENT), tasks.size());
         } catch (DateTimeParseException e) {
-            ui.showStandardFormat(Messages.MESSAGE_DATETIME_PARSE_EXCEPTION);
+            return Messages.MESSAGE_DATETIME_PARSE_EXCEPTION;
         } catch (DateTimeException e) {
-            ui.showStandardFormat(String.format(Messages.MESSAGE_DATETIME_EXCEPTION, e.getMessage()));
+            return String.format(Messages.MESSAGE_DATETIME_EXCEPTION, e.getMessage());
         }
     }
 }

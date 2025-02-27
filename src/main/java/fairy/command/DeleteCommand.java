@@ -3,7 +3,6 @@ package fairy.command;
 import fairy.storage.Storage;
 import fairy.task.Task;
 import fairy.task.TaskList;
-import fairy.ui.Ui;
 
 /**
  * Represents a command of deleting task from the list.
@@ -30,12 +29,12 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         try {
-            Task task = taskList.deleteTask(taskIndex);
-            ui.showStandardFormat(String.format(MESSAGE_SUCCESS, task.toString().indent(TASK_INDENT), taskList.size()));
+            Task task = tasks.deleteTask(taskIndex);
+            return String.format(MESSAGE_SUCCESS, task.toString().indent(TASK_INDENT), tasks.size());
         } catch (IndexOutOfBoundsException e) {
-            ui.showStandardFormat(String.format(MESSAGE_INDEX_OUT_OF_BOUNDS, taskIndex));
+            return String.format(MESSAGE_INDEX_OUT_OF_BOUNDS, taskIndex);
         }
     }
 }

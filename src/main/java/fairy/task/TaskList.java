@@ -13,6 +13,10 @@ import fairy.common.utils.FairyDateTimeFormatter;
  */
 public class TaskList {
 
+    public static final String MESSAGE_DATETIME_START_AFTER_END_ERROR = "Start time is after end time";
+
+    public static final String REGEX_KEYWORD_MATCH = ".*";
+
     private final ArrayList<Task> tasks;
 
     public TaskList() {
@@ -175,7 +179,7 @@ public class TaskList {
 
         // start should be no later than end
         if (end.isBefore(start)) {
-            throw new DateTimeException("Start time is after end time");
+            throw new DateTimeException(MESSAGE_DATETIME_START_AFTER_END_ERROR);
         }
 
         Event newTask = new Event(task, start, end);
@@ -200,7 +204,7 @@ public class TaskList {
 
         // start should be no later than end
         if (end.isBefore(start)) {
-            throw new DateTimeException("Start time is after end time.");
+            throw new DateTimeException(MESSAGE_DATETIME_START_AFTER_END_ERROR);
         }
         Event newTask = new Event(task, start, end);
 
@@ -237,7 +241,8 @@ public class TaskList {
         ArrayList<Task> foundTasks = new ArrayList<>();
 
         for (Task task : tasks) {
-            if (task.getTaskName().toLowerCase().matches(".*" + keyword.toLowerCase() + ".*")) {
+            if (task.getTaskName().toLowerCase().matches(REGEX_KEYWORD_MATCH + keyword.toLowerCase()
+                    + REGEX_KEYWORD_MATCH)) {
                 foundTasks.add(task);
             }
         }

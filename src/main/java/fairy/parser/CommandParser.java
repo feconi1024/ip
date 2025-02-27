@@ -21,6 +21,9 @@ import fairy.exception.InvalidCommandException;
  */
 public class CommandParser {
 
+    /* Regular expression for command flag parsing. */
+    public static final String REGEX_COMMAND_FLAG_PARSE = "\\s+/\\w+";
+
     /**
      * Parses user input into command for execution.
      *
@@ -41,7 +44,7 @@ public class CommandParser {
         if (cmdSplit.length > 1) {
             String rest = cmdSplit[1];
             // Split the rest on any occurrence of whitespace followed by /word
-            String[] parts = rest.split("\\s+/\\w+");
+            String[] parts = rest.split(REGEX_COMMAND_FLAG_PARSE);
             for (String part : parts) {
                 String trimmedPart = part.trim();
                 if (!trimmedPart.isEmpty()) {

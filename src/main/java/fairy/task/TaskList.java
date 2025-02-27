@@ -61,7 +61,7 @@ public class TaskList {
             case "EVENT":
                 addEventFromRecord(args[2], args[3], args[4], args[1]);
                 break;
-            case "FIXEDDUR":
+            case "FIXDUR":
                 addFixedDurationFromRecord(args[2], args[3], args[1]);
                 break;
             default:
@@ -224,9 +224,8 @@ public class TaskList {
      * @param duration Duration of the task in hours.
      * @return The task added to the list.
      */
-    public FixedDurationTask addFixedDuration(String task, String duration) {
-        int dur = Integer.parseInt(duration);
-        FixedDurationTask newTask = new FixedDurationTask(task, Duration.ofHours(dur));
+    public FixedDurationTask addFixedDuration(String task, long duration) {
+        FixedDurationTask newTask = new FixedDurationTask(task, Duration.ofHours(duration));
         tasks.add(newTask);
         return newTask;
     }
@@ -240,7 +239,7 @@ public class TaskList {
      * @param done The task added to the list.
      */
     public void addFixedDurationFromRecord(String task, String duration, String done) {
-        FixedDurationTask newTask = new FixedDurationTask(task, Duration.ofHours(Integer.parseInt(duration)));
+        FixedDurationTask newTask = new FixedDurationTask(task, Duration.ofHours(Long.parseLong(duration)));
 
         assert done.equals("T") || done.equals("F");
 

@@ -7,7 +7,7 @@ import java.time.Duration;
  */
 public class FixedDurationTask extends Task {
 
-    private Duration duration;
+    private final Duration duration;
 
     public FixedDurationTask(String taskName, Duration duration) {
         super(taskName);
@@ -20,7 +20,7 @@ public class FixedDurationTask extends Task {
 
     @Override
     public String toFileString() {
-        return "FIXEDDUR | " + super.toFileString() + " | " + duration.toHours();
+        return "FIXDUR | " + super.toFileString() + " | " + duration.toHours();
     }
 
     @Override

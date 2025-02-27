@@ -9,6 +9,7 @@ import fairy.command.DeleteCommand;
 import fairy.command.EventCommand;
 import fairy.command.ExitCommand;
 import fairy.command.FindCommand;
+import fairy.command.FixdurCommand;
 import fairy.command.ListCommand;
 import fairy.command.MarkCommand;
 import fairy.command.SearchByDateCommand;
@@ -58,6 +59,7 @@ public class CommandParser {
             case TodoCommand.COMMAND_WORD -> new TodoCommand(result.get(0));
             case DeadlineCommand.COMMAND_WORD -> new DeadlineCommand(result.get(0), result.get(1));
             case EventCommand.COMMAND_WORD -> new EventCommand(result.get(0), result.get(1), result.get(2));
+            case FixdurCommand.COMMAND_WORD -> new FixdurCommand(result.get(0), Long.parseLong(result.get(1)));
             case DeleteCommand.COMMAND_WORD -> new DeleteCommand(Integer.parseInt(result.get(0)));
             case ListCommand.COMMAND_WORD -> new ListCommand();
             case MarkCommand.COMMAND_WORD -> new MarkCommand(Integer.parseInt(result.get(0)));

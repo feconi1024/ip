@@ -1,6 +1,7 @@
 package fairy.task;
 
 import java.time.DateTimeException;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -59,6 +60,9 @@ public class TaskList {
                 break;
             case "EVENT":
                 addEventFromRecord(args[2], args[3], args[4], args[1]);
+                break;
+            case "FIXDUR":
+                addFixedDurationFromRecord(args[2], args[3], args[1]);
                 break;
             default:
                 return 0;
@@ -202,6 +206,50 @@ public class TaskList {
             throw new DateTimeException(MESSAGE_DATETIME_START_AFTER_END_ERROR);
         }
         Event newTask = new Event(task, start, end);
+
+        assert done.equals("T") || done.equals("F");
+
+        if (done.equals("T")) {
+            newTask.setDo();
+        } else {
+            newTask.setUndo();
+        }
+        tasks.add(newTask);
+    }
+
+    /**
+     * Adds a fixed duration task to the list.
+     *
+     * @param task Description of the task.
+     * @param duration Duration of the task in hours.
+     * @return The task added to the list.
+     */
+    public FixedDurationTask addFixedDuration(String task, long duration) throws IllegalArgumentException {
+        if (duration <= 0) {
+            // duration must be positive
+            throw new IllegalArgumentException();
+        }
+
+        FixedDurationTask newTask = new FixedDurationTask(task, Duration.ofHours(duration));
+        tasks.add(newTask);
+        return newTask;
+    }
+
+    /**
+     * Adds an fixed duration task to the list using information from file storage.
+     * This method will not produce UI output.
+     *
+     * @param task Description of the task.
+     * @param duration Duration of the task in hours.
+     * @param done The task added to the list.
+     */
+    public void addFixedDurationFromRecord(String task, String duration, String done) {
+        if (Long.parseLong(duration) <= 0) {
+            // duration must be positive
+            throw new IllegalArgumentException();
+        }
+
+        FixedDurationTask newTask = new FixedDurationTask(task, Duration.ofHours(Long.parseLong(duration)));
 
         assert done.equals("T") || done.equals("F");
 

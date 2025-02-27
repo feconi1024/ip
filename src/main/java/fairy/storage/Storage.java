@@ -59,6 +59,8 @@ public class Storage {
             }
             reader.close();
 
+            assert effectiveLines <= totalLines;
+
             // UI output
             if (effectiveLines != totalLines) {
                 ui.showStandardFormat(String.format(MESSAGE_RECORD_ADDED + MESSAGE_FAILURES_EXIST,
@@ -86,7 +88,8 @@ public class Storage {
 
         // create target directory if does not exist
         if (!dir.exists()) {
-            dir.mkdirs();
+            boolean hasMkDir = dir.mkdirs();
+            assert hasMkDir;
         }
 
         try {

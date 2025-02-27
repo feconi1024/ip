@@ -26,6 +26,7 @@ public class Fairy {
     private final Storage storage;
     private final TaskList tasks;
     private final Ui ui;
+    private boolean isExitRequested = false;
 
     /**
      * Simple constructor with no argument, using default values.
@@ -47,6 +48,10 @@ public class Fairy {
         storage = new Storage(fileDir, filePath);
         tasks = new TaskList();
         storage.readFile(tasks, ui);
+    }
+
+    public boolean shouldExit() {
+        return isExitRequested;
     }
 
     /**
@@ -83,6 +88,11 @@ public class Fairy {
     public String getResponse(String fullCommand) {
         try {
             Command c = CommandParser.parseCommand(fullCommand);
+            if (c.isExit()) {
+                // save and exit
+                isExitRequested = true;
+                storage.saveFile(tasks, ui);
+            }
             return c.execute(tasks, storage);
         } catch (IndexOutOfBoundsException e) {
             return Gui.getArgumentExceptionMessage();

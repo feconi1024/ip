@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("fairy.Fairy")
+    mainClass.set("fairy.Launcher")
 }
 
 checkstyle {

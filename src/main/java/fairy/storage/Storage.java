@@ -53,9 +53,11 @@ public class Storage {
             int totalLines = 0;
 
             // read file
-            while ((line = reader.readLine()) != null) {
+            line = reader.readLine();
+            while (line != null) {
                 effectiveLines += taskList.addTaskFromRecord(line);
                 totalLines += 1;
+                line = reader.readLine();
             }
             reader.close();
 

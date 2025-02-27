@@ -13,6 +13,10 @@ import fairy.common.utils.FairyDateTimeFormatter;
  */
 public class TaskList {
 
+    public static final String MESSAGE_DATETIME_START_AFTER_END_ERROR = "Start time is after end time";
+
+    public static final String REGEX_KEYWORD_MATCH = ".*";
+
     private final ArrayList<Task> tasks;
 
     public TaskList() {
@@ -25,17 +29,6 @@ public class TaskList {
 
     public boolean isEmpty() {
         return this.tasks.isEmpty();
-    }
-
-    /**
-     * Retrieves a task.
-     *
-     * @param index The index of the task in the list. Starts from 1.
-     * @return The task at the index given.
-     * @throws IndexOutOfBoundsException If the index is smaller than 1 or exceeds size of the list.
-     */
-    public Task getTask(int index) throws IndexOutOfBoundsException {
-        return this.tasks.get(index - 1);
     }
 
     /**
@@ -181,7 +174,7 @@ public class TaskList {
 
         // start should be no later than end
         if (end.isBefore(start)) {
-            throw new DateTimeException("Start time is after end time");
+            throw new DateTimeException(MESSAGE_DATETIME_START_AFTER_END_ERROR);
         }
 
         Event newTask = new Event(task, start, end);
@@ -206,7 +199,7 @@ public class TaskList {
 
         // start should be no later than end
         if (end.isBefore(start)) {
-            throw new DateTimeException("Start time is after end time.");
+            throw new DateTimeException(MESSAGE_DATETIME_START_AFTER_END_ERROR);
         }
         Event newTask = new Event(task, start, end);
 
@@ -228,9 +221,6 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the index is smaller than 1 or exceeds size of the list.
      */
     public Task deleteTask(int index) throws IndexOutOfBoundsException {
-        if (index > tasks.size()) {
-            throw new IndexOutOfBoundsException("input " + index + " exceeds the size of list: " + tasks.size());
-        }
         return tasks.remove(index - 1);
     }
 
@@ -247,7 +237,9 @@ public class TaskList {
         ArrayList<Task> foundTasks = new ArrayList<>();
 
         for (Task task : tasks) {
-            if (task.getTaskName().toLowerCase().matches(".*" + keyword.toLowerCase() + ".*")) {
+            String taskNameLower = task.getTaskName().toLowerCase();
+            String keywordRegexLower = REGEX_KEYWORD_MATCH + keyword.toLowerCase() + REGEX_KEYWORD_MATCH;
+            if (taskNameLower.matches(keywordRegexLower)) {
                 foundTasks.add(task);
             }
         }
@@ -267,10 +259,21 @@ public class TaskList {
         ArrayList<Task> foundTasks = new ArrayList<>();
 
         for (Task task : tasks) {
-            if (task instanceof Deadline && ((Deadline) task).getEndTime().toLocalDate().equals(d)) {
-                foundTasks.add(task);
-            } else if (task instanceof Event && !((d.isBefore(((Event) task).getStartTime().toLocalDate())) ||
-                    d.isAfter(((Event) task).getEndTime().toLocalDate()))) {
+            boolean isDeadline = task instanceof Deadline;
+            boolean isEvent = task instanceof Event;
+            boolean isOnDeadline = false;
+            boolean isBeforeEvent = true;
+            boolean isAfterEvent = true;
+
+            // whether event is on the date
+            if (isDeadline) {
+                isOnDeadline = ((Deadline) task).getEndTime().toLocalDate().equals(d);
+            } else if (isEvent) {
+                isBeforeEvent = d.isBefore(((Event) task).getStartTime().toLocalDate());
+                isAfterEvent = d.isAfter(((Event) task).getEndTime().toLocalDate());
+            }
+
+            if (isOnDeadline || !(isBeforeEvent || isAfterEvent)) {
                 foundTasks.add(task);
             }
         }

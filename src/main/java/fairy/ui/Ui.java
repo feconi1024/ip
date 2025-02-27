@@ -2,8 +2,6 @@ package fairy.ui;
 
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.time.DateTimeException;
-import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import fairy.common.Messages;
@@ -21,29 +19,12 @@ public class Ui {
     private final PrintStream out;
 
     /**
-     * Constructor using default chatbot name, input and output interfaces.
-     */
-    public Ui() {
-        this(DEFAULT_NAME, System.in, System.out);
-    }
-
-    /**
      * Constructor using default input and output interfaces.
      *
      * @param name Name of the chatbot.
      */
     public Ui(String name) {
         this(name, System.in, System.out);
-    }
-
-    /**
-     * Constructor using default chatbot name.
-     *
-     * @param in Input interface.
-     * @param out Output interface.
-     */
-    public Ui(InputStream in, PrintStream out) {
-        this(DEFAULT_NAME, in, out);
     }
 
     /**
@@ -89,10 +70,6 @@ public class Ui {
         showStandardFormat(Messages.MESSAGE_EXIT);
     }
 
-    public void showIndexOutOfBoundsMessage(String message) {
-        showStandardFormat(String.format(Messages.MESSAGE_INDEX_OUT_OF_BOUNDS, message));
-    }
-
     public void showCommandNotFoundMessage(String command) {
         showStandardFormat(String.format(Messages.MESSAGE_COMMAND_NOT_FOUND, command));
     }
@@ -107,14 +84,6 @@ public class Ui {
 
     public void showGeneralExceptionMessage(String message) {
         showStandardFormat(String.format(Messages.MESSAGE_GENERAL_EXCEPTION, message));
-    }
-
-    public void showDateTimeExceptionMessage(DateTimeException e) {
-        if (e instanceof DateTimeParseException) {
-            showStandardFormat(Messages.MESSAGE_DATETIME_PARSE_EXCEPTION);
-        } else {
-            showStandardFormat(String.format(Messages.MESSAGE_DATETIME_EXCEPTION, e.getMessage()));
-        }
     }
 
     /**

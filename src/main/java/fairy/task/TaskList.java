@@ -114,6 +114,9 @@ public class TaskList {
      */
     public void addToDoFromRecord(String task, String done) {
         Todo newTask = new Todo(task);
+
+        assert done.equals("T") || done.equals("F");
+
         if (done.equals("T")) {
             newTask.setDo();
         } else {
@@ -145,6 +148,9 @@ public class TaskList {
      */
     public void addDeadlineFromRecord(String task, String endTime, String done) {
         Deadline newTask = new Deadline(task, FairyDateTimeFormatter.parseDateTime(endTime));
+
+        assert done.equals("T") || done.equals("F");
+
         if (done.equals("T")) {
             newTask.setDo();
         } else {
@@ -197,6 +203,8 @@ public class TaskList {
         }
         Event newTask = new Event(task, start, end);
 
+        assert done.equals("T") || done.equals("F");
+
         if (done.equals("T")) {
             newTask.setDo();
         } else {
@@ -224,6 +232,8 @@ public class TaskList {
      * @return Iterator of a list of tasks with description containing the keyword.
      */
     public Iterator<Task> searchTaskByKeyword(String keyword) {
+        assert keyword != null && !keyword.isEmpty();
+
         ArrayList<Task> foundTasks = new ArrayList<>();
 
         for (Task task : tasks) {

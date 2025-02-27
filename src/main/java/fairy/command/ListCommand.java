@@ -1,12 +1,10 @@
 package fairy.command;
 
+import fairy.common.Messages;
 import fairy.common.utils.FairyTaskListOutputFormatter;
 import fairy.exception.EmptyListException;
-
-import fairy.common.Messages;
 import fairy.storage.Storage;
 import fairy.task.TaskList;
-import fairy.ui.Ui;
 
 /**
  * Represents a command of showing all tasks in the list to the output.
@@ -20,12 +18,12 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         try {
-            ui.showStandardFormat(Messages.MESSAGE_LIST_INTRO
-                    + FairyTaskListOutputFormatter.formatTaskList(taskList.iterator()));
+            return Messages.MESSAGE_LIST_INTRO
+                    + FairyTaskListOutputFormatter.formatTaskList(tasks.iterator());
         } catch (EmptyListException e) {
-            ui.showStandardFormat(Messages.MESSAGE_NO_TASKS_FOUND);
+            return Messages.MESSAGE_NO_TASKS_FOUND;
         }
     }
 }

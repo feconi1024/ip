@@ -96,9 +96,8 @@ public class Fairy {
         try {
             Command c = CommandParser.parseCommand(fullCommand);
             if (c.isExit()) {
-                // save and exit
+                // exit command
                 isExitRequested = true;
-                storage.saveFile(tasks, ui);
             }
             return c.execute(tasks, storage);
         } catch (IndexOutOfBoundsException e) {
@@ -110,6 +109,14 @@ public class Fairy {
         } catch (Exception e) {
             return Gui.getGeneralExceptionMessage(e.getMessage());
         }
+    }
+
+    /**
+     * Saves list of tasks to file.
+     * Used when the program exits.
+     */
+    public void saveFile() {
+        storage.saveFile(tasks, ui);
     }
 
     public static void main(String[] args) {

@@ -57,7 +57,7 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
 
         if (fairy.shouldExit()) {
-            // exit
+            // exit with a delay to show the dialog
             PauseTransition delay = new PauseTransition(Duration.millis(750));
             delay.setOnFinished(event -> {
                 Stage stage = (Stage) dialogContainer.getScene().getWindow();

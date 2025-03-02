@@ -1,6 +1,6 @@
 # Fairy User Guide
 
-![UI sample image of Fairy.](Ui.png)
+![UI sample image of Fairy.](/docs/Ui.png)
 
 Fairy is a personal assistant that can help you manage tasks, used in a fashion of command line interface (CLI)
 which uses commands to instruct our chatbot, while still persists features of Graphical User Interface (GUI)

@@ -28,7 +28,7 @@ You may also try to double-click the file to open.
 
 ## Features
 
-> [!NOTE]
+> **NOTE**
 > 
 > - In command formats, `UPPER_CASE` are used to represent parameters specified by the users.\
 > e.g. in `todo NAME`, `NAME` is specified by the user which can be used as `todo Send messages`.
@@ -41,7 +41,7 @@ You may also try to double-click the file to open.
 > - Extraneous parameters for commands that do no take any parameters (such as `list` and `bye`) will be ignored.\
 > e.g. command `list 123` will be interpreted as `list`.
 
-> [!IMPORTANT]
+> **IMPORTANT**
 > 
 > - All `TIME` parameters specified by user should be in format: `YYYYMMDD HHMM`.\
 > e.g. `20250302 2359` means 11.59 p.m. on 2 March 2025.
